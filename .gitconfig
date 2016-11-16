@@ -1,0 +1,9 @@
+[user]
+	email = ryncsn@gmail.com
+	name = ryncsn
+[color]
+	ui = auto
+[credential]
+	helper = cache --timeout=3600
+[push]
+	default = simple
