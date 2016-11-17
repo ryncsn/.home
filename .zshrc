@@ -92,7 +92,10 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-function dmux(){ tmux has-session -t "`pwd`" || tmux new -s "`pwd`" -d && tmux attach -t "`pwd`" }
+function dmux(){
+    PWD_HASH=`pwd | sha1sum | cut -c1-8`
+    tmux has-session -t $PWD_HASH || tmux new -s $PWD_HASH -d && tmux attach -t $PWD_HASH
+}
 
 unsetopt nomatch
 
