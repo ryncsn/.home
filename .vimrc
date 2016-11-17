@@ -123,10 +123,10 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 
-inoremap <expr> <C-j> ((pumvisible())?("\<Down>"):("j"))
-inoremap <expr> <C-k> ((pumvisible())?("\<Up>"):("k"))
-
-nmap <F4> :YcmDiags<CR>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
 
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
