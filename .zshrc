@@ -111,3 +111,5 @@ function gen-webpack-product {
 unsetopt nomatch
 
 fortune
+
+alias -g vim="gvim -v"
