@@ -66,7 +66,7 @@ plugins=(common-aliases cp docker encode64 git gitfast git-prompt gitignore pip 
 
 # User configuration
 
-export PATH="~/.local/bin:$PATH"
+export PATH="$(echo ~)/.local/bin:$PATH"
 export TERM="xterm-256color"
 
 source $ZSH/oh-my-zsh.sh
