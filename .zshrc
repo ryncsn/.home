@@ -93,7 +93,7 @@ export EDITOR='vim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 function dmux(){
-    PWD_LAST=`pwd | rev | cut -d'/' -f 1 | rev`
+    PWD_LAST=`pwd | rev | cut -d'/' -f 1 | rev | sed -e "s/[^a-zA-Z0-9_]/-/g"`
     PWD_HASH=`pwd | sha1sum | cut -c1-8`
     PWD_ABRV=${PWD_LAST}-${PWD_HASH}
     tmux has-session -t $PWD_ABRV || tmux new -s $PWD_ABRV -d && tmux attach -t $PWD_ABRV
