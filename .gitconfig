@@ -7,3 +7,9 @@
 	helper = cache --timeout=3600
 [push]
 	default = simple
+#[http]
+#	proxy = socks5://127.0.0.1:8080
+#[https]
+#	proxy = socks5://127.0.0.1:8080
+#[git]
+#	proxy = socks5://127.0.0.1:8080

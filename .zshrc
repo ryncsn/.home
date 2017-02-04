@@ -103,8 +103,6 @@ unsetopt nomatch
 
 fortune
 
-alias -g vim="gvim -v"
-
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi

@@ -79,7 +79,14 @@ Plugin 'joonty/vim-phpqa'
 " Show redanunt spaces
 Plugin 'bitc/vim-bad-whitespace'
 
+" Vue
 Plugin 'posva/vim-vue'
+
+" typescript
+Plugin 'leafgarland/typescript-vim'
+Plugin 'Quramy/tsuquyomi'
+Plugin 'Shougo/vimproc.vim'
+
 "Plugin '2072/PHP-Indenting-for-VIm'
 "Plugin 'lukaszb/vim-web-indent'
 "Plugin 'tpope/vim-fugitive'
@@ -185,7 +192,7 @@ let g:syntastic_javascript_checkers = ['jshint']
 let g:indent_guides_enable_on_vim_startup = 1
 
 " HTML style indent
-autocmd FileType vue,jade,javascript,html,css,php set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType vue,jade,javascript,typescript,html,css,php set tabstop=2 shiftwidth=2 softtabstop=2
 
 " WEB autocompletion
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -212,3 +219,6 @@ let g:airline_powerline_fonts = 1
 "GUI Part
 set guifont=Hack\ 12
 
+autocmd FileType typescript JsPreTmpl html
+autocmd FileType javascript JsPreTmpl html
+autocmd FileType typescript syn clear foldBraces " For leafgarland/typescript-vim users only. Please see #1 for details.
