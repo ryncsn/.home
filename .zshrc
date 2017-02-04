@@ -99,17 +99,13 @@ function dmux(){
     tmux has-session -t $PWD_ABRV || tmux new -s $PWD_ABRV -d && tmux attach -t $PWD_ABRV
 }
 
-function gen-webpack-product {
-    ./node_modules/webpack/bin/webpack.js
-    git checkout -B production
-    git add $1 -f
-    git commit --message="Production commit"
-    git push production production -f
-    git checkout -
-}
-
 unsetopt nomatch
 
 fortune
 
 alias -g vim="gvim -v"
+
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
+fi
+
