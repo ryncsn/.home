@@ -219,6 +219,4 @@ let g:airline_powerline_fonts = 1
 "GUI Part
 set guifont=Hack\ 12
 
-autocmd FileType typescript JsPreTmpl html
-autocmd FileType javascript JsPreTmpl html
 autocmd FileType typescript syn clear foldBraces " For leafgarland/typescript-vim users only. Please see #1 for details.
