@@ -7,6 +7,18 @@ if [[ ! $PWD == */.home ]]; then
     exit 1
 fi
 
+if [[ ! -d ~/.oh-my-zsh ]]; then
+    echo "Installing Oh-my-zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+else
+    echo "Oh-my-zsh already installed."
+fi
+
+if [[ ! -d ~/.oh-my-zsh/custom/themes/powerlevel9k ]]; then
+    echo "Installing Theme..."
+    git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+fi
+
 _symLink(){
     _path="$1"
     _src="$(realpath $_path)";
