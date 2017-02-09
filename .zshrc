@@ -107,3 +107,6 @@ if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
 
+ssh-clear-figureprint(){
+    sed -i "/^$1.*$/d" ~/.ssh/known_hosts
+}
