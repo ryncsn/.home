@@ -1,5 +1,6 @@
+set shell=/bin/bash
 set nocompatible
-
+syntax on
 filetype off
 "set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -55,7 +56,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'othree/html5.vim'
 
 "Misc Syntax check
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 
 " Text align
 Plugin 'godlygeek/tabular'
@@ -86,6 +87,10 @@ Plugin 'posva/vim-vue'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'Quramy/tsuquyomi'
 Plugin 'Shougo/vimproc.vim'
+
+Plugin 'jmcantrell/vim-virtualenv'
+
+Plugin 'w0rp/ale'
 
 "Plugin '2072/PHP-Indenting-for-VIm'
 "Plugin 'lukaszb/vim-web-indent'

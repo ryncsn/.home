@@ -11,7 +11,7 @@ _checkPwd(){
 }
 
 _checkTools(){
-    for i in "git" "curl" "vim" "sed" "sh" "realpath" "dirname"; do
+    for i in "git" "curl" "vim" "sed" "sh" "realpath" "dirname" "fish"; do
         $(which $i &> /dev/null) || _error "'$i' is needed but not installed"
     done
 }
@@ -31,15 +31,18 @@ _symLink(){
 }
 
 _Install(){
-    if [[ ! -d ~/.oh-my-zsh ]]; then
-        echo "Installing Oh-my-zsh..."
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh) sed 's/^env zsh$/d'"
+    if [[ ! -d ~/.local/share/omf ]]; then
+        echo "Installing Oh-my-fish..."
+        curl -L https://get.oh-my.fish | fish
     fi
 
-    if [[ ! -d ~/.oh-my-zsh/custom/themes/powerlevel9k ]]; then
-        echo "Installing Theme..."
-        git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+    if [[ ! -d ~/.fzf ]]; then
+        echo "Installing fzf..."
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install
     fi
+
+    fish -c "omf install bobthefish"
 
     if [[ ! -d ~/.vim/bundle/Vundle.vim ]]; then
         echo "Installing Theme..."
