@@ -34,6 +34,7 @@ _Install(){
     if [[ ! -d ~/.local/share/omf ]]; then
         echo "Installing Oh-my-fish..."
         curl -L https://get.oh-my.fish | fish
+        fish -c "omf install bobthefish"
     fi
 
     if [[ ! -d ~/.fzf ]]; then
@@ -41,8 +42,6 @@ _Install(){
         git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
         ~/.fzf/install
     fi
-
-    fish -c "omf install bobthefish"
 
     if [[ ! -d ~/.vim/bundle/Vundle.vim ]]; then
         echo "Installing Theme..."
@@ -60,6 +59,3 @@ main(){
 }
 
 main
-
-#TODO
-vim -c "PluginInstall"
