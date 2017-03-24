@@ -1,3 +1,3 @@
-function fish_greeting
-	fortune -a
+if command --search fortune >/dev/null do
+    fortune
 end

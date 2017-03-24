@@ -1,3 +1,3 @@
 function ssh-clear-figureprint
-    sed -i "/^$1.*\$/d" ~/.ssh/known_hosts
+    sed -i "/^$argv[1].*\$/d" ~/.ssh/known_hosts
 end
