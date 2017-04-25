@@ -188,13 +188,13 @@ set showmatch
 set smartindent
 colorscheme jellybeans
 
-"Check syntax
-let g:syntastic_check_on_open=1
-let g:syntastic_javascript_checkers = ['jshint']
-
-
 "Colored Indent
 let g:indent_guides_enable_on_vim_startup = 1
+
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['flake8'],
+\}
 
 " HTML style indent
 autocmd FileType vue,jade,javascript,typescript,html,css,php set tabstop=2 shiftwidth=2 softtabstop=2

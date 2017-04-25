@@ -1,0 +1,112 @@
+!Urxvt Part
+URxvt.font: xft:Hack:pixelsize=18:antialias=false,xft:wenquanyi\ micro\ hei:pixelsize=18:antialias=false,xft:Symbola:pixelsize=13:antialias=false
+!URxvt.letterSpace: 0
+
+urxvt.scrollstyle: plain
+URxvt.scrollColor: #000000
+URxvt.scrollBar_right: true
+!URxvt.mouseWheelScrollPage:false
+!URxvt.scrollTtyOutput:false
+!URxvt.scrollWithBuffer:false
+!URxvt.scrollTtyKeypress:false
+URxvt*saveLines: 100000
+
+!URxvt.selection.pattern-0: >>>[ ]+(.+)
+!URxvt.selection.pattern-0: /\w/
+URxvt.selection.pattern-0: ([0-9a-zA-Z_]+)
+URxvt.selection.pattern-1: ([0-9a-zA-Z_\-]+)
+
+URxvt.perl-lib: /usr/lib/urxvt/perl
+!URxvt.perl-ext-common: default,url-select,keyboard-select,selection,clipboard,selection-to-clipboard,selection-pastebin
+URxvt.perl-ext: selection,clipboard,selection-to-clipboard,selection-pastebin
+URxvt.clipboard.autocopy: true
+
+URxvt.iconFile: /home/song/.local/share/icons/hicolor/large/terminal.png
+
+URxvt.borderLess:true
+
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+
+URxvt.clipboard.copycmd: xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob
+
+URxvt*termName: rxvt-256color
+!URxvt*termName: xterm-256color
+!Urxvt*termName: screen-256color
+
+Xft*antialias:          true
+
+
+! --- ~/.Xresources ------------------------------------------------------------
+! ------------------------------------------------------------------------------
+! --- generated with 4bit Terminal Color Scheme Designer -----------------------
+! ------------------------------------------------------------------------------
+! --- http://ciembor.github.com/4bit -------------------------------------------
+! ------------------------------------------------------------------------------
+
+! --- special colors ---
+
+*background: #010304
+*foreground: #ffffff
+
+! --- standard colors ---
+
+! black
+*color0: #1c1c1c
+
+! bright_black
+*color8: #393939
+
+! red
+*color1: #dc5769
+
+! bright_red
+*color9: #e06d7c
+
+! green
+*color2: #69dc57
+
+! bright_green
+*color10: #7ce06d
+
+! yellow
+*color3: #dcca57
+
+! bright_yellow
+*color11: #e0d16d
+
+! blue
+*color4: #5769dc
+
+! bright_blue
+*color12: #6d7ce0
+
+! magenta
+*color5: #ca57dc
+
+! bright_magenta
+*color13: #d16de0
+
+! cyan
+*color6: #57dcca
+
+! bright_cyan
+*color14: #6de0d1
+
+! white
+*color7: #ececec
+
+! bright_white
+*color15: #ffffff
+
+
+! ------------------------------------------------------------------------------
+! --- end of terminal colors section -------------------------------------------
+! ------------------------------------------------------------------------------
+
