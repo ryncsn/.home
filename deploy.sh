@@ -26,6 +26,11 @@ _symLink(){
         ln -s $_src $_dst
         echo "$_dst linked to $_src"
     else
+        if [[ ! -L $_dst ]]; then
+            echo "$_dst is a file, create a backup and replace with a linkt to $_src"
+            mv $_dst $_dst.bak
+            ln -s $_src $_dst
+        fi
         echo "$_dst already exists, skipping."
     fi
 }
