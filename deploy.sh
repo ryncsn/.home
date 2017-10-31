@@ -45,7 +45,7 @@ _Install(){
     if [[ ! -d ~/.fzf ]]; then
         echo "Installing fzf..."
         git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-        ~/.fzf/install
+        ~/.fzf/install --all
     fi
 
     if [[ ! -d ~/.vim/bundle/Vundle.vim ]]; then
