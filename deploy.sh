@@ -12,7 +12,7 @@ _checkPwd(){
 
 _checkTools(){
     for i in "git" "curl" "vim" "sed" "sh" "realpath" "dirname" "fish"; do
-        $(which $i &> /dev/null) || _error "'$i' is needed but not installed"
+        $(command -v $i &> /dev/null) || _error "'$i' is needed but not installed"
     done
 }
 
