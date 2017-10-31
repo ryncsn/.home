@@ -21,7 +21,6 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 " Snips
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Bundle 'chrisgillis/vim-bootstrap3-snippets'
 
 "Javascript indent
 Plugin 'pangloss/vim-javascript'
@@ -58,9 +57,6 @@ Plugin 'othree/html5.vim'
 "Misc Syntax check
 "Plugin 'scrooloose/syntastic'
 
-" Text align
-Plugin 'godlygeek/tabular'
-
 " Surrounding
 Plugin 'tpope/vim-surround'
 
@@ -87,8 +83,6 @@ Plugin 'posva/vim-vue'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'Quramy/tsuquyomi'
 Plugin 'Shougo/vimproc.vim'
-
-Plugin 'jmcantrell/vim-virtualenv'
 
 Plugin 'w0rp/ale'
 
