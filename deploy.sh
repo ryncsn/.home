@@ -38,7 +38,7 @@ _symLink(){
 _Install(){
     if [[ ! -d ~/.local/share/omf ]]; then
         echo "Installing Oh-my-fish..."
-        curl -L https://get.oh-my.fish | fish
+        curl -L https://get.oh-my.fish | sed -e 's/main $argv/\nset -g NONINTERACTIVE\nset -g ASSUME_YES\nmain $argv/' | fish
         fish -c "omf install bobthefish"
     fi
 
