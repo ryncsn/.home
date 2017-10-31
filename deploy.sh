@@ -61,6 +61,7 @@ main(){
     for i in $(find -type f -not -path "./deploy.sh" -not -path "./.git/*"); do
         _symLink $i
     done
+    vim -c "PluginInstall"
 }
 
 main
