@@ -42,7 +42,7 @@ _Install(){
         fish -c "omf install bobthefish"
     fi
 
-    if [[ ! -d ~/.fzf ]]; then
+    if [[ ! -f /root/.config/fish/functions/fzf_key_bindings.fish ]]; then
         echo "Installing fzf..."
         git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
         ~/.fzf/install --all
