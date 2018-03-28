@@ -14,3 +14,5 @@ set -x -g GOPATH $HOME/go
 set -x -g GOBIN $GOPATH/bin
 
 set -x -g PATH $GOBIN $PATH
+set -x -g PATH /usr/local/bin $PATH
+set -x -g PATH /usr/local/sbin $PATH
