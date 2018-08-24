@@ -74,19 +74,6 @@ Plugin 'Shougo/vimproc.vim'
 " Syntax Check
 Plugin 'w0rp/ale'
 
-"Plugin '2072/PHP-Indenting-for-VIm'
-"Plugin 'lukaszb/vim-web-indent'
-"Plugin 'tpope/vim-fugitive'
-"Plugin 'moll/vim-node'
-"Plugin 'guileen/vim-node-dict'
-"Plugin 'ahayman/vim-nodejs-complete'
-
-
-"Broken
-
-"Use YCM Instead
-"Plugin 'davidhalter/jedi'
-
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -131,6 +118,7 @@ let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_seed_indentifiers_with_syntax=1
 let g:ycm_complete_in_comments=1
 let g:ycm_complete_in_strings=1
+let g:ycm_max_diagnostics_to_display = 4096
 
 let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
@@ -164,7 +152,6 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set hlsearch
-set expandtab
 set incsearch
 set showmatch
 set smartindent
@@ -190,12 +177,6 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 au BufRead,BufNewFile *.tmplt set ft=html.css
 
 autocmd FileType c,cpp set expandtab!
-
-let g:phpcomplete_complete_for_unknown_classes = 1
-let g:phpcomplete_search_tags_for_variables = 1
-let g:phpcomplete_relax_static_constraint = 1
-let g:phpcomplete_cache_taglists = 1
-let g:phpcomplete_enhance_jump_to_definition = 1
 
 " Javascript
 let javascript_enable_domhtmlcss = 1
