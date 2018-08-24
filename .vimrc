@@ -8,7 +8,7 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
+" Fish shell
 Plugin 'dag/vim-fish'
 
 " let Vundle manage Vundle, required
@@ -24,12 +24,6 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 " Snips
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-
-"Javascript indent
-Plugin 'pangloss/vim-javascript'
-
-"Javascript highlight
-Plugin 'jelera/vim-javascript-syntax'
 
 "Python indent
 "Plugin 'vim-scripts/indentpython.vim'
@@ -57,9 +51,6 @@ Plugin 'kien/ctrlp.vim'
 "Better HTML
 Plugin 'othree/html5.vim'
 
-"Misc Syntax check
-"Plugin 'scrooloose/syntastic'
-
 " Surrounding
 Plugin 'tpope/vim-surround'
 
@@ -68,13 +59,6 @@ Plugin 'nathanaelkane/vim-indent-guides'
 
 " Jade support
 Plugin 'digitaltoad/vim-jade'
-
-" Php autocompletion
-Plugin 'shawncplus/phpcomplete.vim'
-" Php Color
-Plugin 'StanAngeloff/php.vim'
-" Php syntax check
-Plugin 'joonty/vim-phpqa'
 
 " Show redanunt spaces
 Plugin 'bitc/vim-bad-whitespace'
@@ -87,6 +71,7 @@ Plugin 'leafgarland/typescript-vim'
 Plugin 'Quramy/tsuquyomi'
 Plugin 'Shougo/vimproc.vim'
 
+" Syntax Check
 Plugin 'w0rp/ale'
 
 "Plugin '2072/PHP-Indenting-for-VIm'
@@ -217,8 +202,10 @@ let javascript_enable_domhtmlcss = 1
 
 let g:airline_powerline_fonts = 1
 
-
-"GUI Part
+" GUI Part
 set guifont=Hack\ 12
+
+" Search for ctag until reach /
+set tags=tags;
 
 autocmd FileType typescript syn clear foldBraces " For leafgarland/typescript-vim users only. Please see #1 for details.
