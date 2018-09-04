@@ -1,18 +1,21 @@
 set shell=/bin/bash
 set nocompatible
+
 syntax on
 filetype off
+
 "set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" Fish shell
-Plugin 'dag/vim-fish'
-
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+
+" Fish shell
+Plugin 'dag/vim-fish'
 
 " YCM
 Plugin 'Valloric/YouCompleteMe'
@@ -73,6 +76,9 @@ Plugin 'Shougo/vimproc.vim'
 
 " Syntax Check
 Plugin 'w0rp/ale'
+
+" Rust
+Plugin 'rust-lang/rust.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -138,12 +144,12 @@ set laststatus=2
 set dictionary+=~/.vim/bundle/bootstrap-snippets/dictionary
 set complete+=k
 
-"Nerd tree
+" Nerd tree
 nnoremap <C-n> :NERDTreeToggle<CR>
 let g:nerdtree_tabs_autofind = 1
 let NERDTreeShowBookmarks=1
 
-"Buffer jump
+" Buffer jump
 map <F5> :buffers<CR>:buffer<Space>
 
 " Default
@@ -175,8 +181,6 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " PHP autocompletion
 au BufRead,BufNewFile *.tmplt set ft=html.css
-
-autocmd FileType c,cpp set expandtab!
 
 " Javascript
 let javascript_enable_domhtmlcss = 1
