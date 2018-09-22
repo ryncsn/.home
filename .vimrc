@@ -115,6 +115,7 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+nnoremap <C-]> g<C-]>
 
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
