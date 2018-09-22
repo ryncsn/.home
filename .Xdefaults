@@ -1,5 +1,7 @@
 !Urxvt Part
-URxvt.font: xft:Hack:pixelsize=18:antialias=false,xft:wenquanyi\ micro\ hei:pixelsize=18:antialias=false,xft:Symbola:pixelsize=13:antialias=false
+URxvt.font:         xft:Hack-Regular:pixelsize=18:antialias=true,xft:wenquanyi\ micro\ hei:pixelsize=16:antialias=true,xft:Symbola:pixelsize=13:antialias=true
+URxvt.boldFont:     xft:Hack-Bold:pixelsize=18:weight=bold,xft:Symbola
+URxvt.italicFont:   xft:Hack-RegularOblique:pixelsize=18:slant=italic,xft:Symbola
 !URxvt.letterSpace: 0
 
 urxvt.scrollstyle: plain
