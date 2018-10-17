@@ -80,6 +80,9 @@ Plugin 'w0rp/ale'
 " Rust
 Plugin 'rust-lang/rust.vim'
 
+" Auto indent
+Plugin 'tpope/vim-sleuth'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -155,13 +158,9 @@ map <F5> :buffers<CR>:buffer<Space>
 
 " Default
 syntax on
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
 set hlsearch
 set incsearch
 set showmatch
-set smartindent
 colorscheme jellybeans
 
 "Colored Indent
@@ -172,16 +171,10 @@ let g:ale_linters = {
 \   'python': ['flake8'],
 \}
 
-" HTML style indent
-autocmd FileType vue,jade,javascript,typescript,html,css,php set tabstop=2 shiftwidth=2 softtabstop=2
-
 " WEB autocompletion
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-" PHP autocompletion
-au BufRead,BufNewFile *.tmplt set ft=html.css
 
 " Javascript
 let javascript_enable_domhtmlcss = 1
