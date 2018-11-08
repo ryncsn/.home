@@ -58,7 +58,7 @@ main(){
     _checkPwd
     _checkTools
     _Install
-    for i in $(find -type f -not -path "./deploy.sh" -not -path "./.git/*"); do
+    for i in $(find -type f -not -path "./deploy.sh" -not -path "./.git/*" -not -path "./misc/*"); do
         _symLink $i
     done
     vim -c "PluginInstall"
