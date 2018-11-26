@@ -1,4 +1,3 @@
-set shell=/bin/bash
 set nocompatible
 
 syntax on
@@ -20,36 +19,21 @@ Plugin 'dag/vim-fish'
 " YCM
 Plugin 'Valloric/YouCompleteMe'
 
-" Deps
-Plugin 'tomtom/tlib_vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-
 " Snips
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
 "Python indent
-"Plugin 'vim-scripts/indentpython.vim'
 Plugin 'hynek/vim-python-pep8-indent'
 
 "Auto quotes, parens, brackets etc.
-"Plugin 'Raimondi/delimitMate'
+Plugin 'Raimondi/delimitMate'
 
 "Airline
 Plugin 'bling/vim-airline'
-"Powerline
-"Plugin 'powerline/powerline'
 
 "Color
 Plugin 'nanotech/jellybeans.vim'
-
-"Nerd Tree
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-
-"CtrlP
-Plugin 'kien/ctrlp.vim'
 
 "Better HTML
 Plugin 'othree/html5.vim'
@@ -144,15 +128,6 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 set laststatus=2
 
-" Bootstrap auto complete
-set dictionary+=~/.vim/bundle/bootstrap-snippets/dictionary
-set complete+=k
-
-" Nerd tree
-nnoremap <C-n> :NERDTreeToggle<CR>
-let g:nerdtree_tabs_autofind = 1
-let NERDTreeShowBookmarks=1
-
 " Buffer jump
 map <F5> :buffers<CR>:buffer<Space>
 
@@ -169,6 +144,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['flake8'],
+\   'rust': ['cargo'],
 \}
 
 " WEB autocompletion
