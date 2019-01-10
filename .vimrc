@@ -1,3 +1,4 @@
+set shell=/bin/bash
 set nocompatible
 
 syntax on
