@@ -62,7 +62,7 @@ def FlagsForFile(filename, **kwargs ):
             # In case of Makefile rebuilt
             flag = flag.rstrip('\n')
             if flag == "__YCM_CFLAG_HEADER__":
-                kbuild_flags.clear()
+                kbuild_flags = []
             else:
                 kbuild_flags.append(flag)
 
