@@ -1,0 +1,25 @@
+git
+git-extras
+git-email
+vim-X11
+rpkg
+ctags
+cscope
+iotop
+iftop
+htop
+tmux
+node
+python
+pipenv
+ansible
+gcc
+gcc-c++
+make
+cmake
+
+# RPM Fusion
+rpmfusion-free-release
+rpmfusion-nonfree-release
+tlp
+chromium
