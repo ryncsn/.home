@@ -68,6 +68,9 @@ Plugin 'rust-lang/rust.vim'
 " Auto indent
 Plugin 'tpope/vim-sleuth'
 
+" Tagbar
+Plugin 'majutsushi/tagbar'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -130,7 +133,8 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 set laststatus=2
 
 " Buffer jump
-map <F5> :buffers<CR>:buffer<Space>
+nmap <F5> :buffers<CR>:buffer<Space>
+nmap <F8> :TagbarToggle<CR>
 
 " Default
 syntax on
@@ -158,10 +162,11 @@ let javascript_enable_domhtmlcss = 1
 
 let g:airline_powerline_fonts = 1
 
-" GUI Part
-set guifont=Hack\ 12
-
 " Search for ctag until reach /
 set tags=tags;
 
-autocmd FileType typescript syn clear foldBraces " For leafgarland/typescript-vim users only. Please see #1 for details.
+let g:tagbar_sort = 0
+autocmd BufEnter * nested :call tagbar#autoopen(0)
+
+set list " show hidden characters
+set listchars=tab:•\ ,trail:·,extends:❯,precedes:❮,nbsp:×
