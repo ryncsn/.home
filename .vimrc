@@ -166,7 +166,7 @@ let g:airline_powerline_fonts = 1
 set tags=tags;
 
 let g:tagbar_sort = 0
-autocmd BufEnter * nested :call tagbar#autoopen(0)
+autocmd FileType * nested :call tagbar#autoopen(0)
 
 set list " show hidden characters
 set listchars=tab:•\ ,trail:·,extends:❯,precedes:❮,nbsp:×
