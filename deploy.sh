@@ -11,7 +11,8 @@ _checkPwd(){
 }
 
 _checkTools(){
-    for i in "git" "curl" "vim" "sed" "sh" "realpath" "dirname" "fish"; do
+    for i in "git" "curl" "vim" "sed" "sh" "fish"\
+        "realpath" "dirname"; do
         $(command -v $i &> /dev/null) || _error "'$i' is needed but not installed"
     done
 }
@@ -61,7 +62,14 @@ main(){
     for i in $(find -type f -not -path "./deploy.sh" -not -path "./.git/*" -not -path "./misc/*"); do
         _symLink $i
     done
-    vim -c "PluginInstall"
+
+    # vim +"PluginInstall" +"qall"
+    # vim +"PluginUpdate" +"qall"
+
+    pushd /home/kasong/.vim/bundle/YouCompleteMe
+    git submodule update --init --recursive
+    ./install.py --clang-completer --rust-completer --ts-completer
+    popd
 }
 
 main

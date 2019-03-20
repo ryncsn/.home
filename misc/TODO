@@ -10,6 +10,7 @@ iftop
 htop
 tmux
 node
+npm
 python
 pipenv
 ansible
@@ -18,8 +19,15 @@ gcc-c++
 make
 cmake
 rustc
+cargo
 hexchat
+python
+python-devel
 
+python3
+python3-devel
+
+lm_sensors
 
 # RPM Fusion
 rpmfusion-free-release
@@ -27,9 +35,13 @@ rpmfusion-nonfree-release
 tlp
 chromium
 
+# CMD
 sudo systemctl enable tlp
 
+sensors-detect
 
 mkdir -p ~/.local/share/fonts/
 # Get https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
 fc-cache -f -v
+
+GRUB_CMDLINE_LINUX=".... crashkernel=128M"
