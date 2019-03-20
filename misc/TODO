@@ -17,9 +17,19 @@ gcc
 gcc-c++
 make
 cmake
+rustc
+hexchat
+
 
 # RPM Fusion
 rpmfusion-free-release
 rpmfusion-nonfree-release
 tlp
 chromium
+
+sudo systemctl enable tlp
+
+
+mkdir -p ~/.local/share/fonts/
+# Get https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
+fc-cache -f -v
