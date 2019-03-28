@@ -19,6 +19,8 @@ gcc-c++
 make
 cmake
 rustc
+docker
+docker-compose
 cargo
 hexchat
 python
@@ -28,6 +30,8 @@ python3
 python3-devel
 
 lm_sensors
+libvirt
+virt-manager
 
 # RPM Fusion
 rpmfusion-free-release
@@ -36,7 +40,10 @@ tlp
 chromium
 
 # CMD
+usermod -a -G libvirt <me>
+
 sudo systemctl enable tlp
+sudo systemctl enable docker
 
 sensors-detect
 

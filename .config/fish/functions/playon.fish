@@ -1,22 +1,27 @@
-function playon --description "playon [<user>@]<host> [[user@]<host>...] <playbook> [ANSIBLE OTIONS]"
+function playon --description "playon [<user>@]<host> [[user@]<host>...] [ANSIBLE OTIONS] <playbook>"
     set ansible_args
     set ansible_inventory ""
     set ansible_playbook ""
+    set args_parsed false
 
     for arg in $argv
         switch $arg
             case '*@*'
                 set ansible_inventory "$ansible_inventory$arg,"
             case '-*'
-                set -a ansible_args "$arg"
+                set ansible_args "$ansible_args $arg"
+                set args_parsed true
             case '*'
-                if [ -n $ansible_playbook ]
-                    # Last non *@* arg is considered the playbook
-                    set ansible_inventory "$ansible_inventory$ansible_playbook,"
+                if [ -f $arg ]
+                    set ansible_playbook "$arg"
+                else
+                    if [ $args_parsed = false ]
+                        set ansible_inventory "$ansible_inventory$arg,"
+                    else
+                        set ansible_args "$ansible_args $arg"
+                    end
                 end
-                set ansible_playbook "$arg"
         end
     end
-    echo ansible-playbook --inventory $ansible_inventory --extra-vars "ansible_python_interpreter=/usr/bin/python3" $ansible_playbook $ansible_args
-    ansible-playbook --inventory $ansible_inventory --extra-vars "ansible_python_interpreter=/usr/bin/python3" $ansible_playbook $ansible_args
+    eval "ansible-playbook --inventory $ansible_inventory --extra-vars 'ansible_python_interpreter=/usr/bin/python3' $ansible_args $ansible_playbook"
 end

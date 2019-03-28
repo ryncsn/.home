@@ -1,6 +1,6 @@
 [user]
-	email = ryncsn@gmail.com
-	name = ryncsn
+	email = kasong@redhat.com
+	name = Kairui Song
 [color]
 	ui = auto
 [credential]
@@ -13,3 +13,5 @@
 #	proxy = socks5://127.0.0.1:8080
 #[git]
 #	proxy = socks5://127.0.0.1:8080
+[sendemail]
+	smtpserver = smtp.corp.redhat.com
