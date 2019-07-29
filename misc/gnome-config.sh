@@ -23,7 +23,15 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "['<Super>
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 10
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding.custom0 binding '<Super>Return'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding.custom0 command 'gnome-terminal'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding.custom0 name 'Terminal'
+gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
+gsettings set org.gnome.shell.keybindings switch-to-application-1 []
+gsettings set org.gnome.shell.keybindings switch-to-application-2 []
+gsettings set org.gnome.shell.keybindings switch-to-application-3 []
+gsettings set org.gnome.shell.keybindings switch-to-application-4 []
+gsettings set org.gnome.shell.keybindings switch-to-application-5 []
+gsettings set org.gnome.shell.keybindings switch-to-application-6 []
+gsettings set org.gnome.shell.keybindings switch-to-application-7 []
+gsettings set org.gnome.shell.keybindings switch-to-application-8 []
+gsettings set org.gnome.shell.keybindings switch-to-application-9 []
 
+echo "TODO: <Super>Enter to terminal"
