@@ -63,7 +63,7 @@ main(){
         _symLink $i
     done
 
-    # vim +"PluginInstall" +"qall"
+    vim +"PluginInstall" +"qall"
     # vim +"PluginUpdate" +"qall"
 
     pushd /home/kasong/.vim/bundle/YouCompleteMe
