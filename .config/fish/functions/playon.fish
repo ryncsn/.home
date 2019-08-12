@@ -57,6 +57,6 @@ function playon --description "playon [<user>@]<host> [[user@]<host>...] [ANSIBL
         return 1
     end
 
-    echo "ansible-playbook --inventory $ansible_inventory --extra-vars 'ansible_python_interpreter=/usr/bin/python3' $ansible_args $ansible_playbook"
-    eval "ansible-playbook --inventory $ansible_inventory --extra-vars 'ansible_python_interpreter=/usr/bin/python3' $ansible_args $ansible_playbook"
+    echo "ansible-playbook --inventory $ansible_inventory --extra-vars 'ansible_python_interpreter=/usr/bin/python$python_version' $ansible_args $ansible_playbook"
+    eval "ansible-playbook --inventory $ansible_inventory --extra-vars 'ansible_python_interpreter=/usr/bin/python$python_version' $ansible_args $ansible_playbook"
 end

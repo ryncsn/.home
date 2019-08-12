@@ -1,3 +1,4 @@
+# Install
 git
 git-extras
 git-email
@@ -14,6 +15,9 @@ npm
 python
 pipenv
 ansible
+bison
+bc
+openssl-devel
 gcc
 gcc-c++
 make
@@ -25,6 +29,7 @@ cargo
 hexchat
 python
 python-devel
+smartctl
 
 python3
 python3-devel
@@ -33,7 +38,9 @@ lm_sensors
 libvirt
 virt-manager
 
-# RPM Fusion
+# Better fonts https://github.com/silenc3r/fedora-better-fonts
+
+# RPM Fusion sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 rpmfusion-free-release
 rpmfusion-nonfree-release
 tlp
@@ -44,6 +51,7 @@ usermod -a -G libvirt <me>
 
 sudo systemctl enable tlp
 sudo systemctl enable docker
+sudo systemctl enable libvirt
 
 sensors-detect
 
@@ -52,3 +60,9 @@ mkdir -p ~/.local/share/fonts/
 fc-cache -f -v
 
 GRUB_CMDLINE_LINUX=".... crashkernel=128M"
+
+# In Gnome config, set Switch Windows to Alt-Tab, set Super-Enter to gnome-terminal
+
+# Disabled sleep on lid close and sleep on idle
+#
+# /etc/systemd/logind.conf Lid -> ignore
