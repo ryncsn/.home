@@ -11,7 +11,7 @@ _checkPwd(){
 }
 
 _checkTools(){
-    for i in "git" "curl" "vim" "sed" "sh" "fish"\
+    for i in "git" "curl" "vim" "sed" "sh" "fish" "rustc"\
         "realpath" "dirname"; do
         $(command -v $i &> /dev/null) || _error "'$i' is needed but not installed"
     done
