@@ -5,15 +5,17 @@ iscsi_setup_server() {
 
     tgtadm --lld iscsi --op bind --mode target --tid 1 -I ALL
 
-    dd if=/dev/zero of=/mnt/iscsi-test bs=1M count=1000
+    dd if=/dev/zero of=/var/run/tgtd/iscsi-local bs=1M count=1024
 
-    qemu-img create /mnt/iscsi-test 4G
+    qemu-img create /var/run/tgtd/iscsi-local 1G
 
-    tgtadm --lld iscsi --mode logicalunit --op new --tid 1 --lun 1 -b /mnt/iscsi-test --device-type=disk
+    # TODO: Permanent
+
+    tgtadm --lld iscsi --mode logicalunit --op new --tid 1 --lun 1 -b /var/run/tgtd/iscsi-local --device-type=disk
 
     tgtadm --lld iscsi --mode logicalunit --op delete --tid 1 --lun 1
 
-    tgtadm --lld iscsi --mode target --op delete --tid 1
+    # tgtadm --lld iscsi --mode target --op delete --tid 1
 
     tgtadm --lld iscsi --op show --mode target
 }

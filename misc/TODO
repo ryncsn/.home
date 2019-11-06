@@ -29,7 +29,7 @@ cargo
 hexchat
 python
 python-devel
-smartctl
+smartmontools
 
 python3
 python3-devel

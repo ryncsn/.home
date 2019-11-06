@@ -1,0 +1,4 @@
+<qemu:commandline>
+  <qemu:arg value='-M'/>
+  <qemu:arg value='q35,max-ram-below-4g=2G'/>
+</qemu:commandline>
