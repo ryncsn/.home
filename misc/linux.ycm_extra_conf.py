@@ -22,11 +22,6 @@ if not os.path.exists(os.path.join(LINUX_DIR, ".config")):
     raise RuntimeError('Need a valid .config or "make config" first for auto-completion to work.')
 
 def generate_cflags_cache():
-    ret = os.system('make alldefconfig')
-    if ret:
-        os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
-        raise RuntimeError('Falied generating default config')
-
     ret = os.system('cd %s && make --eval \'%s\' print_flags > %s' % (LINUX_DIR, MAKE_PRINT_FLAGS, CFLAG_CACHE))
     if ret:
         os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
