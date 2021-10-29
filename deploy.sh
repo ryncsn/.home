@@ -1,36 +1,43 @@
 #!/bin/bash
 
-_error() {
-    echo $1; exit 1;
-}
-
 _checkPwd(){
     if [[ ! $(pwd) == */.home ]]; then
-        _error "This is script is only used for fast deploy of my own env files"
+        echo "This is script is only used for fast deploy of my own env files"
+        exit 1
     fi
 }
 
 _checkTools(){
-    for i in "git" "curl" "vim" "sed" "sh" "fish" "rustc"\
-        "realpath" "dirname"; do
-        $(command -v $i &> /dev/null) || _error "'$i' is needed but not installed"
+    local _ret=0
+    local _tools=( "git" "curl" "vim" "sed" "sh" "fish" "rustc" "cmake" "g++" "realpath" "dirname" "shellcheck" "npm" "chsh" "ctags" )
+    for i in ${_tools[*]}; do
+        if ! command -v "$i" &> /dev/null; then
+            echo "'$i' is needed but not installed"
+            _ret=1
+        fi
     done
+
+    if [[ "$_ret" -ne 0 ]]; then
+        echo "Please ensure follwing tools are all installed:"
+        echo "${_tools[*]}"
+        exit 1
+    fi
 }
 
 _symLink(){
-    _path="$1"
-    _src="$(realpath $_path)";
-    _dst="$(echo ~/)${_path#./}";
-    _baseDir=$(dirname $_dst)
-    mkdir -p $_baseDir
+    local _path="$1" _src _dst _baseDir
+    _src="$(realpath "$_path")";
+    _dst="$HOME/${_path#./}";
+    _baseDir=$(dirname "$_dst")
+    mkdir -p "$_baseDir"
     if [[ ! -f $_dst ]]; then
-        ln -s $_src $_dst
+        ln -s "$_src" "$_dst"
         echo "$_dst linked to $_src"
     else
         if [[ ! -L $_dst ]]; then
             echo "$_dst is a file, create a backup and replace with a linkt to $_src"
-            mv $_dst $_dst.bak
-            ln -s $_src $_dst
+            mv "$_dst" "$_dst.bak"
+            ln -s "$_src" "$_dst"
         fi
         echo "$_dst already exists, skipping."
     fi
@@ -59,14 +66,15 @@ main(){
     _checkPwd
     _checkTools
     _Install
-    for i in $(find -type f -not -path "./deploy.sh" -not -path "./.git/*" -not -path "./misc/*"); do
-        _symLink $i
-    done
+
+    while IFS= read -r -d '' i; do
+        _symLink "$i"
+    done < <(find . -type f -not -path "./deploy.sh" -not -path "./.git/*" -not -path "./misc/*" -print0)
 
     vim +"PluginInstall" +"qall"
     # vim +"PluginUpdate" +"qall"
 
-    pushd /home/kasong/.vim/bundle/YouCompleteMe
+    pushd "$HOME/.vim/bundle/YouCompleteMe"
     git submodule update --init --recursive
     ./install.py --clang-completer --rust-completer --ts-completer
     popd
