@@ -71,8 +71,6 @@ Plugin 'tpope/vim-sleuth'
 " Tagbar
 Plugin 'majutsushi/tagbar'
 
-" Git warpper
-Plugin 'tpope/vim-fugitive'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
