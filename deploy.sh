@@ -7,11 +7,14 @@ _checkPwd(){
     fi
 }
 
+# XXX: This only work on Fedora
 _checkTools(){
     local _ret=0
-    local _tools=( "git" "curl" "vim" "sed" "sh" "fish" "rustc" "cmake" "g++" "realpath" "dirname" "shellcheck" "npm" "chsh" "ctags" )
+    local _tools=( "git" "curl" "vimx,vim-X11" "fedpkg" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv"
+    ",openssl-devel" ",elfutils-devel" ",ncurses-devel")
     for i in ${_tools[*]}; do
-        if ! command -v "$i" &> /dev/null; then
+        [ "${i%,*}" ] || continue
+        if ! command -v "${i%,*}" &> /dev/null; then
             echo "'$i' is needed but not installed"
             _ret=1
         fi
@@ -19,8 +22,17 @@ _checkTools(){
 
     if [[ "$_ret" -ne 0 ]]; then
         echo "Please ensure follwing tools are all installed:"
-        echo "${_tools[*]}"
-        exit 1
+        local _inst
+        _inst=( )
+        for i in ${_tools[*]}; do
+            _inst+=( "${i#*,}" )
+        done
+        echo "Trying to install missing packages...:"
+        sudo dnf install "${_inst[@]}" -y || {
+            echo "Failed to install missing packages, please install them manually:"
+            echo "${_inst[@]}"
+            exit 1
+        }
     fi
 }
 
