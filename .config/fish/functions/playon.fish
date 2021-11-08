@@ -1,62 +1,58 @@
 function playon --description "playon [<user>@]<host> [[user@]<host>...] [ANSIBLE OTIONS] <playbook>"
     set ansible_args
-    set ansible_inventory ""
-    set ansible_playbook ""
+    set ansible_arg_inventory ""
+    set ansible_playbook_file (mktemp -p (pwd) playon.XXXXXX)
     set expect_param false
     set python_version 3
 
+    echo -n "---
+- hosts: all
+  tasks:
+" > $ansible_playbook_file
+
     for arg in $argv
-        switch $arg
-            case '-2'
-                set python_version 2
-            case '-*'
-                switch "$arg"
-                    case --private-key --key-file \
-                        --scp-extra-args --sftp-extra-args \
-                        --ssh-common-args --ssh-extra-args \
-                        --start-at-task --vault-id --vault-password-file \
-                        --module-path \
-                        -c --connection -e --extra-vars \
-                        -f --forks -t --tags -u --user
-                        set expect_param true
-                    case -u --user
-                        echo "Can't use -u, --user with this command"
-                        return 1
-                    case -i --inventory --inventory-file
-                        echo "Can't use -i, --inventory, --inventory-file with this command"
-                        return 1
-                    case *
-                        :
-                end
-                set ansible_args "$ansible_args $arg"
-            case '*'
-                if [ "$expect_param" = "true" ]
-                    set expect_param false
-                    set ansible_args "$ansible_args $arg"
-                else
-                    if [ -f $arg ]
-                        if [ -n $ansible_playbook ]
-                            echo "Not expecting multiple playbook."
-                            return 1
-                        end
-                        set ansible_playbook $arg
-                    else
-                        set ansible_inventory "$ansible_inventory$arg,"
+        if test "$expect_param" = "true"
+            set expect_param false
+            set ansible_args $ansible_args $arg
+        else
+            switch $arg
+                case '-2'
+                    set python_version 2
+                case '-*'
+                    switch $arg
+                        case --private-key --key-file \
+                            --scp-extra-args --sftp-extra-args \
+                            --ssh-common-args --ssh-extra-args \
+                            --start-at-task --vault-id --vault-password-file \
+                            --module-path \
+                            -c --connection -e --extra-vars \
+                            -f --forks -t --tags -u --user -i --inventory
+                            set expect_param true
                     end
-                end
+                    set ansible_args $ansible_args $arg
+                case '*.yml' '*.yaml'
+                    echo "  - name: $arg" >> $ansible_playbook_file
+                    echo "    import_tasks: $arg" >> $ansible_playbook_file
+                case '*'
+                    if [ -f $arg ]
+                        set ansible_args -i $arg
+                    else
+                        set ansible_arg_inventory $ansible_arg_inventory$arg,
+                    end
+            end
         end
     end
 
-    if [ -z $ansible_inventory ]
-        echo "No valid remote host found."
-        return 1
+    if [ -n $ansible_arg_inventory ]
+        set ansible_args -i "$ansible_arg_inventory" $ansible_args
     end
 
-    if [ -z $ansible_playbook ]
-        echo "No valid playbook found."
-        return 1
-    end
+    echo "Temporary built playbook: "
+    cat $ansible_playbook_file
+    echo
 
-    echo "ansible-playbook --inventory $ansible_inventory --extra-vars 'ansible_python_interpreter=/usr/bin/python$python_version' $ansible_args $ansible_playbook"
-    eval "ansible-playbook --inventory $ansible_inventory --extra-vars 'ansible_python_interpreter=/usr/bin/python$python_version' $ansible_args $ansible_playbook"
+    echo ansible-playbook $ansible_args --extra-vars "ansible_python_interpreter=/usr/bin/python$python_version" $ansible_playbook_file
+    ansible-playbook $ansible_args --extra-vars "ansible_python_interpreter=/usr/bin/python$python_version" $ansible_playbook_file
+
+    test -e $ansible_playbook_file && rm -f -- $ansible_playbook_file
 end
