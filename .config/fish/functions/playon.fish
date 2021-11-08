@@ -1,3 +1,4 @@
+# Execute a set of ansible tasks directly
 function playon --description "playon [<user>@]<host> [[user@]<host>...] [ANSIBLE OTIONS] <playbook>"
     set ansible_args
     set ansible_arg_inventory ""
