@@ -80,7 +80,12 @@ main(){
     _Install
 
     while IFS= read -r -d '' i; do
-        _symLink "$i"
+        if [ "$(basename "$i")" = ".gitkeep" ]; then
+            i=$(dirname "$i")
+            mkdir -p "$HOME/${i#./}";
+        else
+            _symLink "$i"
+        fi
     done < <(find . -type f -not -path "./deploy.sh" -not -path "./.git/*" -not -path "./misc/*" -print0)
 
     vim +"PluginInstall" +"qall"
