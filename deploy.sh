@@ -3,7 +3,7 @@
 _checkPwd(){
     if [[ ! $(pwd) == */.home ]]; then
         echo "This is script is only used for fast deploy of my own env files"
-        exit 1
+        return 1
     fi
 }
 
@@ -55,9 +55,10 @@ _symLink(){
     fi
 }
 
-_Install(){
+_deployInstall(){
     if [[ ! -d ~/.local/share/omf ]]; then
         echo "Installing Oh-my-fish..."
+        # TODO: Hardening
         curl -L https://get.oh-my.fish | sed -e 's/main $argv/\nset -g NONINTERACTIVE\nset -g ASSUME_YES\nmain $argv/' | fish
         fish -c "omf install bobthefish"
     fi
@@ -74,11 +75,7 @@ _Install(){
     fi
 }
 
-main(){
-    _checkPwd
-    _checkTools
-    _Install
-
+_syncDotFiles() {
     while IFS= read -r -d '' i; do
         if [ "$(basename "$i")" = ".gitkeep" ]; then
             i=$(dirname "$i")
@@ -86,15 +83,78 @@ main(){
         else
             _symLink "$i"
         fi
-    done < <(find . -type f -not -path "./deploy.sh" -not -path "./.git/*" -not -path "./misc/*" -print0)
-
-    vim +"PluginInstall" +"qall"
-    # vim +"PluginUpdate" +"qall"
-
-    pushd "$HOME/.vim/bundle/YouCompleteMe"
-    git submodule update --init --recursive
-    ./install.py --clang-completer --rust-completer --ts-completer
-    popd
+    done < <(find . -type f \
+        -not -path "./deploy.sh" \
+        -not -path "./.git/*" \
+        -not -path "./misc/*" \
+        -print0)
 }
 
-main
+_rebuildYCM() {
+    pushd "$HOME/.vim/bundle/YouCompleteMe" || echo "YCM not installed" && exit 1
+    git submodule update --init --recursive
+    ./install.py --clang-completer --rust-completer --ts-completer
+    popd || exit 1
+}
+
+_vimDeploy() {
+    vim +"PluginInstall" +"qall!"
+}
+
+_vimUpdate() {
+    vim +"PluginUpdate" +"qall!"
+}
+
+_getHelm() {
+    # TODO: Hardening
+    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | HELM_INSTALL_DIR=$HOME/.local/bin USE_SUDO=false bash
+}
+
+_helmDeploy() {
+    "$HOME/.local/bin/helm" repo add jenkins https://charts.jenkins.io
+}
+
+_helmUpdate() {
+    "$HOME/.local/bin/helm" update
+}
+
+_doUpdate() {
+    _syncDotFiles
+    _checkTools
+
+    # Misc updates:
+    fish -c "omf update"
+
+    _getHelm
+    _helmUpdate
+
+    _vimUpdate
+    _rebuildYCM
+}
+
+_doDeploy(){
+    _syncDotFiles
+    _checkTools
+
+    _getHelm
+    _helmDeploy
+
+    _deployInstall
+
+    _vimDeploy
+    _rebuildYCM
+}
+
+_checkPwd || exit 1
+
+case $1 in
+    sync-dot-files )
+        _syncDotFiles
+        ;;
+    update )
+        _doUpdate
+        ;;
+    * )
+        _doDeploy
+        ;;
+esac

@@ -14,4 +14,6 @@ alias grepc 'grep --color="always"'
 alias lessc 'less -R'
 
 set -x -g PATH /usr/local/bin $PATH
+set -x -g PATH /usr/local/sbin $PATH
+set -x -g PATH $HOME/.local/bin $PATH
 set -x -g PATH $HOME/.local/sbin $PATH
