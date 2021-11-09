@@ -115,7 +115,7 @@ _helmDeploy() {
 }
 
 _helmUpdate() {
-    "$HOME/.local/bin/helm" update
+    "$HOME/.local/bin/helm" repo update
 }
 
 _doUpdate() {
