@@ -35,7 +35,10 @@ function playon --description "playon [<user>@]<host> [[user@]<host>...] [ANSIBL
                     echo "  - name: $arg" >> $ansible_playbook_file
                     echo "    import_tasks: $arg" >> $ansible_playbook_file
                 case '*'
-                    if [ -f $arg ]
+                    if [ -d $arg ]
+                        echo "  - include_role:" >> $ansible_playbook_file
+                        echo "      name: $arg" >> $ansible_playbook_file
+                    else if [ -f $arg ]
                         set ansible_args -i $arg
                     else
                         set ansible_arg_inventory $ansible_arg_inventory$arg,

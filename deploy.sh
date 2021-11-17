@@ -112,6 +112,7 @@ _getHelm() {
 
 _helmDeploy() {
     "$HOME/.local/bin/helm" repo add jenkins https://charts.jenkins.io
+    "$HOME/.local/bin/helm" repo add ceph-csi https://ceph.github.io/csi-charts
 }
 
 _helmUpdate() {
