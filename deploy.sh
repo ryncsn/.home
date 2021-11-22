@@ -1,5 +1,7 @@
 #!/bin/bash
 
+OS=$(uname -s)
+
 _checkPwd(){
     if [[ ! $(pwd) == */.home ]]; then
         echo "This is script is only used for fast deploy of my own env files"
@@ -9,10 +11,8 @@ _checkPwd(){
 
 _checkTools(){
     local _ret=0 _tools _installer
-    local _os
 
-    _os=$(uname -s)
-    case "$_os" in
+    case "$OS" in
         Darwin )
             if ! command -v brew &> /dev/null; then
                 echo "Homebrew required."
@@ -30,7 +30,7 @@ _checkTools(){
             _installer=( "sudo" "dnf" "install" "-y" )
             ;;
         * )
-            echo "Unknown OS $_os"
+            echo "Unknown OS $OS"
             ;;
     esac
 
@@ -59,9 +59,9 @@ _checkTools(){
     fi
 }
 
-_symLinkDotHome(){
-    local _src="$HOME/.home/$1"
-    local _dst="$HOME/$1"
+_symLink(){
+    local _src=$1
+    local _dst=$2
     local _baseDir
 
     _baseDir=$(dirname "$_dst")
@@ -101,19 +101,40 @@ _deployInstall(){
     fi
 }
 
-_syncDotFiles() {
+_do_syncDotFiles() {
+    local _root=$1
+    pushd "$_root" || { echo "Failed pushd $_root"; exit 1;}
     while IFS= read -r -d '' i; do
+        i=${i#./}
         if [ "$(basename "$i")" = ".gitkeep" ]; then
             i=$(dirname "$i")
-            mkdir -p "$HOME/${i#./}";
+            mkdir -p "$HOME/$i";
         else
-            _symLinkDotHome "${i#./}"
+            _symLink "$HOME/.home/$_root/$i" "$HOME/$i"
         fi
     done < <(find . -type f \
-        -not -path "./deploy.sh" \
         -not -path "./.git/*" \
+        -not -path "./deploy.sh" \
         -not -path "./misc/*" \
+        -not -path "./distros/*" \
         -print0)
+    popd || { echo "Failed popd $_root"; exit 1;}
+}
+
+_syncDotFiles() {
+    _do_syncDotFiles .
+    case "$OS" in
+        Darwin )
+            _do_syncDotFiles ./distros/macos
+            ;;
+        Linux )
+            # XXX: This only work on Fedora
+            _do_syncDotFiles ./distros/fedora
+            ;;
+        * )
+            echo "Unknown OS $OS"
+            ;;
+    esac
 }
 
 _rebuildYCM() {

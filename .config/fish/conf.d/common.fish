@@ -6,7 +6,7 @@ alias ..... "cd ../../../.."
 alias la "ls -Gla"
 
 alias lsd 'ls -l | grep "^d"'
-alias ls 'ls --color="auto"'
+alias ls 'ls --color="always"'
 alias ll 'ls -ahlF'
 alias l 'ls -CF'
 
