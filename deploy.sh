@@ -19,12 +19,13 @@ _checkTools(){
                 exit 1
             fi
             # TODO: use rustup
-            _tools=( "git" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "helm" "rustup-init" "starship" )
+            _tools=( "git" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "helm" "rustup-init" "starship" "grc" "terminal-notifier")
             _installer=( "brew" "install" )
             ;;
         Linux )
             # XXX: This only work on Fedora
             # TODO: use rustup
+            # TODO: "grc" "terminal-notifier" ?
             local _tools=( "git" "curl" "vimx,vim-X11" "fedpkg" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "cargo" "starship"
     ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
             _installer=( "sudo" "dnf" "install" "-y" )
@@ -82,12 +83,19 @@ _symLink(){
 }
 
 _deployInstall(){
-    if [[ ! -d ~/.local/share/omf ]]; then
-        echo "Installing Oh-my-fish..."
+    if ! fish -c "fisher -v" &>/dev/null; then
+        echo "Installing Fisher..."
         # TODO: Hardening
         curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-        fish -c "omf install bobthefish"
+
+        fish -c "fisher install patrickf1/colored_man_pages.fish"
+        fish -c "fisher install franciscolourenco/done"
+        fish -c "fisher install oh-my-fish/plugin-grc"
+
+        set --universal --export theme_nerd_fonts yes
     fi
+
+    fish_update_completions
 
     if [[ ! -f ~/.config/fish/functions/fzf_key_bindings.fish ]]; then
         echo "Installing fzf..."
@@ -174,7 +182,7 @@ _doUpdate() {
     _checkTools
 
     # Misc updates:
-    fish -c "omf update"
+    fish -c "fisher update"
 
     _getHelm
     _helmUpdate

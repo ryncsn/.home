@@ -18,8 +18,8 @@ $time\
 $status\
 $character"""
 
-command_timeout=5000
-scan_timeout=5000
+command_timeout=500
+scan_timeout=500
 
 [shlvl]
 format="[ $shlvl ](bg:black fg:$style)[](fg:black bg:bright-white)"
@@ -111,15 +111,15 @@ disabled=false
 
 [shell]
 unknown_indicator="unknown-sh"
-format="[ $indicator ]($style)[](fg:cyan bg:yellow)"
-style="bold bg:cyan fg:black"
+format="[ $indicator ]($style)[](fg:190 bg:bright-yellow)"
+style="bold bg:190 fg:black"
 disabled=false
 
 [cmd_duration]
-style="fg:black bg:yellow"
+style="fg:black bg:bright-yellow"
 min_time=0
 show_milliseconds=true
-format="[  $duration]($style)[](fg:yellow bg:235)"
+format="[  $duration]($style)[](fg:bright-yellow bg:235)"
 
 [time]
 disabled=false
@@ -140,7 +140,7 @@ format="[](fg:235 bg:red)[ $symbol$status ]($style)"
 style="bold white bg:red"
 
 [character]
-format="$symbol"
+format="$symbol "
 disabled=false
 success_symbol="[](fg:235 bg:green)[](bold green)"
 error_symbol="[](bold red)"
