@@ -3,12 +3,11 @@ alias ... "cd ../.."
 alias .... "cd ../../.."
 alias ..... "cd ../../../.."
 
-alias la "ls -Gla"
-
+alias ls 'ls --color=always'
 alias lsd 'ls -l | grep "^d"'
-alias ls 'ls --color="always"'
 alias ll 'ls -ahlF'
 alias l 'ls -CF'
+alias la "ls -Gla"
 
 alias grepc 'grep --color="always"'
 alias lessc 'less -R'

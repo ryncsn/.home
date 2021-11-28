@@ -90,7 +90,6 @@ _deployInstall(){
 
         fish -c "fisher install patrickf1/colored_man_pages.fish"
         fish -c "fisher install franciscolourenco/done"
-        fish -c "fisher install oh-my-fish/plugin-grc"
 
         set --universal --export theme_nerd_fonts yes
     fi
