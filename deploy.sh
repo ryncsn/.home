@@ -19,13 +19,13 @@ _checkTools(){
                 exit 1
             fi
             # TODO: use rustup
-            _tools=( "git" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "helm" "rustup-init" )
+            _tools=( "git" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "helm" "rustup-init" "starship" )
             _installer=( "brew" "install" )
             ;;
         Linux )
             # XXX: This only work on Fedora
             # TODO: use rustup
-            local _tools=( "git" "curl" "vimx,vim-X11" "fedpkg" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "cargo"
+            local _tools=( "git" "curl" "vimx,vim-X11" "fedpkg" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "cargo" "starship"
     ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
             _installer=( "sudo" "dnf" "install" "-y" )
             ;;
@@ -69,7 +69,7 @@ _symLink(){
 
     if [[ ! -f $_dst ]]; then
         ln -sf "$_src" "$_dst"
-        "$_dst linked to $_src"
+        echo "$_dst linked to $_src"
     else
         if [[ ! -L $_dst ]]; then
             echo "$_dst is a file, create a backup and replace with a linkt to $_src"
@@ -85,7 +85,7 @@ _deployInstall(){
     if [[ ! -d ~/.local/share/omf ]]; then
         echo "Installing Oh-my-fish..."
         # TODO: Hardening
-        curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | sed -e 's/main $argv/\nset -g NONINTERACTIVE\nset -g ASSUME_YES\nmain $argv/' | fish
+        curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish | source && fisher install jorgebucaran/fisher
         fish -c "omf install bobthefish"
     fi
 
@@ -194,6 +194,8 @@ _doDeploy(){
 
     _vimDeploy
     _rebuildYCM
+
+    echo "Now go install Nerf Font"
 }
 
 _checkPwd || exit 1

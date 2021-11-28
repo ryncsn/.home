@@ -1,0 +1,215 @@
+format="""\
+$shlvl\
+$hostname\
+$battery\
+$username\
+$directory\
+$git_branch\
+$git_commit\
+$git_status\
+$git_metrics\
+$git_state\
+$all\
+$line_break\
+$jobs\
+$shell\
+$cmd_duration\
+$time\
+$status\
+$character"""
+
+command_timeout=5000
+scan_timeout=5000
+
+[shlvl]
+format="[ $shlvl ](bg:black fg:$style)[](fg:black bg:bright-white)"
+disabled=false
+symbol=""
+
+[hostname]
+ssh_only=false
+style="fg:bright-black bg:bright-white"
+format="[ $hostname ]($style)[](fg:bright-white bg:235)"
+
+# harware config
+[battery]
+disabled=false
+unknown_symbol="襤"
+empty_symbol=" "
+discharging_symbol=" "
+charging_symbol=" "
+full_symbol=" "
+format="[ $symbol$percentage ]($style)[](fg:235 bg:white)"
+
+[[battery.display]]
+threshold=15
+style="bold bright-red bg:235"
+
+[[battery.display]]
+threshold=50
+style="bold yellow bg:235"
+
+[[battery.display]]
+threshold=85
+style="bold green bg:235"
+
+[[battery.display]]
+threshold=100
+style="bold bright-black bg:235"
+
+[username]
+show_always=true
+style_user="bg:white fg:black"
+style_root="bg:white fg:bright-red"
+format="[ $user ]($style)[](fg:white bg:bright-black)"
+
+[directory]
+truncate_to_repo=false
+truncation_length=3
+fish_style_pwd_dir_length=1
+style="bg:bright-black bold"
+format="[ $path ]($style)[$read_only]($style)[](fg:bright-black) "
+read_only=" "
+truncation_symbol="…/"
+
+[git_branch]
+always_show_remote=true
+only_attached=false
+symbol="  "
+style="bright-green"
+format="\b\b[](fg:bright-black bg:$style)[$symbol$branch ](fg:black bg:$style)[](fg:$style) "
+
+[git_commit]
+disabled=false
+only_detached=false
+tag_disabled=false
+tag_symbol="  "
+style="bright-black"
+format="[ﰖ $hash$tag ]($style) "
+
+[git_status]
+format='[ $all_status$ahead_behind]($style)'
+conflicted="[|   ${count} ](fg:red)"
+staged="[| S $count ](fg:green)"
+modified="[| M ${count} ](fg:red)"
+renamed="[| R ${count} ](fg:red)"
+deleted="[|  ${count} ](fg:red)"
+untracked="[| ﬒ ${count} ](fg:red)"
+stashed="|  ${count} "
+ahead="[|  ${count} ](fg:purple)"
+behind="[|  ${count} ](fg:yellow)"
+
+[git_metrics]
+disabled=false
+
+[jobs]
+symbol=" "
+style="white"
+number_threshold=1
+format="[ $symbol $number ](bg:black fg:$style)[](fg:black bg:cyan)"
+disabled=false
+
+[shell]
+unknown_indicator="unknown-sh"
+format="[ $indicator ]($style)[](fg:cyan bg:yellow)"
+style="bold bg:cyan fg:black"
+disabled=false
+
+[cmd_duration]
+style="fg:black bg:yellow"
+min_time=0
+show_milliseconds=true
+format="[  $duration]($style)[](fg:yellow bg:235)"
+
+[time]
+disabled=false
+format="[ $time ](bg:235 fg:white)"
+
+[status]
+symbol=""
+success_symbol=""
+not_executable_symbol=""
+not_found_symbol=""
+sigint_symbol=""
+signal_symbol="!"
+recognize_signal_code=true
+disabled=false
+map_symbol=true
+pipestatus=false
+format="[](fg:235 bg:red)[ $symbol$status ]($style)"
+style="bold white bg:red"
+
+[character]
+format="$symbol"
+disabled=false
+success_symbol="[](fg:235 bg:green)[](bold green)"
+error_symbol="[](bold red)"
+vicmd_symbol="[](bold cyan)"
+
+# Nerdfonts
+[aws]
+symbol="  "
+
+[conda]
+symbol=" "
+
+[dart]
+symbol=" "
+
+[docker_context]
+symbol=" "
+
+[elixir]
+symbol=" "
+
+[elm]
+symbol=" "
+
+[golang]
+symbol=" "
+
+[hg_branch]
+symbol=" "
+
+[java]
+symbol=" "
+
+[julia]
+symbol=" "
+
+[memory_usage]
+symbol=" "
+
+[nim]
+symbol=" "
+
+[nix_shell]
+symbol=" "
+
+[perl]
+symbol=" "
+
+[php]
+symbol=" "
+
+[python]
+symbol=" "
+
+[ruby]
+symbol=" "
+
+[rust]
+symbol=" "
+
+[scala]
+symbol=" "
+
+[swift]
+symbol="ﯣ "
+
+[custom.linuxkernel]
+description=""
+style="bold bright-yellow"
+when="[ -e Kconfig ] && [ -e Kbuild ] && [ -e Makefile ] && grep -q VERSION Makefile"
+command='sed -E -ne "s/^(VERSION|PATCHLEVEL|SUBLEVEL)[[:space:]]*=[[:space:]]*(\S*)/\2/p" Makefile | paste -sd . -'
+format="[| Linux Kernel $output ]($style)"
