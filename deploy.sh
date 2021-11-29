@@ -86,15 +86,14 @@ _deployInstall(){
     if ! fish -c "fisher -v" &>/dev/null; then
         echo "Installing Fisher..."
         # TODO: Hardening
-        curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-
+        fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
         fish -c "fisher install patrickf1/colored_man_pages.fish"
         fish -c "fisher install franciscolourenco/done"
 
-        set --universal --export theme_nerd_fonts yes
+        fish -c "set --universal --export theme_nerd_fonts yes"
     fi
 
-    fish_update_completions
+    fish -c "fish_update_completions"
 
     if [[ ! -f ~/.config/fish/functions/fzf_key_bindings.fish ]]; then
         echo "Installing fzf..."
