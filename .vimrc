@@ -169,3 +169,5 @@ autocmd FileType * :call tagbar#autoopen(0)
 
 set list " show hidden characters
 set listchars=tab:•\ ,trail:·,extends:❯,precedes:❮,nbsp:×
+
+set backspace=indent,eol,start

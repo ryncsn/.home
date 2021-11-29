@@ -18,8 +18,8 @@ $time\
 $status\
 $character"""
 
-command_timeout=500
-scan_timeout=500
+command_timeout=3000
+scan_timeout=3000
 
 [shlvl]
 format="[ $shlvl ](bg:black fg:$style)[](fg:black bg:bright-white)"
@@ -77,7 +77,7 @@ always_show_remote=true
 only_attached=false
 symbol="  "
 style="bright-green"
-format="\b\b[](fg:bright-black bg:$style)[$symbol$branch ](fg:black bg:$style)[](fg:$style) "
+format="\b\b[](fg:bright-black bg:$style)[$symbol$branch  $remote_name - $remote_branch ](fg:black bg:$style)[](fg:$style) "
 
 [git_commit]
 disabled=false
@@ -211,5 +211,5 @@ symbol="ﯣ "
 description=""
 style="bold bright-yellow"
 when="[ -e Kconfig ] && [ -e Kbuild ] && [ -e Makefile ] && grep -q VERSION Makefile"
-command='sed -E -ne "s/^(VERSION|PATCHLEVEL|SUBLEVEL)[[:space:]]*=[[:space:]]*(\S*)/\2/p" Makefile | paste -sd . -'
+command='sed -E -ne "s/^(VERSION|PATCHLEVEL|SUBLEVEL|EXTRAVERSION)[[:space:]]*=[[:space:]\-]*(\S*)/\2/p" Makefile | paste -sd "..-" -'
 format="[| Linux Kernel $output ]($style)"
