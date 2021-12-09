@@ -101,12 +101,6 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
-nnoremap <C-]> g<C-]>
-
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
 let g:ycm_confirm_extra_conf=0
@@ -126,25 +120,29 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
 " vim-airline config
+set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-set laststatus=2
+let g:airline_powerline_fonts = 1
 
 " Buffer jump
 nmap <F5> :buffers<CR>:buffer<Space>
 nmap <F8> :TagbarToggle<CR>
 
-" Default
+" Default configs
 syntax on
 set hlsearch
 set incsearch
 set showmatch
+
+" I Like this color
 colorscheme jellybeans
 
-"Colored Indent
+" Colored Indent
 let g:indent_guides_enable_on_vim_startup = 1
 
+" Enable ale linters
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['flake8'],
@@ -159,15 +157,16 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 " Javascript
 let javascript_enable_domhtmlcss = 1
 
-let g:airline_powerline_fonts = 1
-
-" Search for ctag until reach /
+" Search for ctag mark file until reach /
 set tags=tags;
 
+" Tag bar show symbols in file order, and always on
 let g:tagbar_sort = 0
 autocmd FileType * :call tagbar#autoopen(0)
 
-set list " show hidden characters
+" Show hidden/tailing/heading characters
+set list
 set listchars=tab:•\ ,trail:·,extends:❯,precedes:❮,nbsp:×
 
+" For MacOS (Be compatible with GNU/Linux)
 set backspace=indent,eol,start

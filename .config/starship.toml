@@ -1,6 +1,7 @@
 format="""\
 $shlvl\
 $hostname\
+$memory_usage\
 $battery\
 $username\
 $directory\
@@ -27,9 +28,15 @@ disabled=false
 symbol=""
 
 [hostname]
-ssh_only=false
+ssh_only=true
 style="fg:bright-black bg:bright-white"
 format="[ $hostname ]($style)[](fg:bright-white bg:235)"
+
+[memory_usage]
+threshold=0
+style="fg:bright-black bg:bright-white"
+format="\b[  ${ram}( 易${swap}) ]($style)[](fg:bright-white bg:235)"
+disabled=false
 
 # harware config
 [battery]
@@ -60,11 +67,11 @@ style="bold bright-black bg:235"
 [username]
 show_always=true
 style_user="bg:white fg:black"
-style_root="bg:white fg:bright-red"
+style_root="bg:white fg:bright-red bold"
 format="[ $user ]($style)[](fg:white bg:bright-black)"
 
 [directory]
-truncate_to_repo=false
+truncate_to_repo=true
 truncation_length=3
 fish_style_pwd_dir_length=1
 style="bg:bright-black bold"
@@ -85,13 +92,13 @@ only_detached=false
 tag_disabled=false
 tag_symbol="  "
 style="bright-black"
-format="[ﰖ $hash$tag ]($style) "
+format="[$hash$tag]($style) "
 
 [git_status]
-format='[ $all_status$ahead_behind]($style)'
+format='[$all_status$ahead_behind]($style)'
 conflicted="[|   ${count} ](fg:red)"
 staged="[| S $count ](fg:green)"
-modified="[| M ${count} ](fg:red)"
+modified="[|  ${count} ](fg:red)"
 renamed="[| R ${count} ](fg:red)"
 deleted="[|  ${count} ](fg:red)"
 untracked="[| ﬒ ${count} ](fg:red)"
@@ -127,11 +134,11 @@ format="[ $time ](bg:235 fg:white)"
 
 [status]
 symbol=""
-success_symbol=""
-not_executable_symbol=""
-not_found_symbol=""
-sigint_symbol=""
-signal_symbol="!"
+success_symbol=" "
+not_executable_symbol=" "
+not_found_symbol=" "
+sigint_symbol=" "
+signal_symbol="! "
 recognize_signal_code=true
 disabled=false
 map_symbol=true
@@ -142,9 +149,9 @@ style="bold white bg:red"
 [character]
 format="$symbol "
 disabled=false
-success_symbol="[](fg:235 bg:green)[](bold green)"
-error_symbol="[](bold red)"
-vicmd_symbol="[](bold cyan)"
+success_symbol="[](fg:235 bg:green)[](green)"
+error_symbol="[](red)"
+vicmd_symbol="[](cyan)"
 
 # Nerdfonts
 [aws]
@@ -176,9 +183,6 @@ symbol=" "
 
 [julia]
 symbol=" "
-
-[memory_usage]
-symbol=" "
 
 [nim]
 symbol=" "
