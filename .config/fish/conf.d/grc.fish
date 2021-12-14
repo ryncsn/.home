@@ -4,11 +4,11 @@ if type -q grc
 	end
 
 	# Fix ls color issue with grc
-	function ls --wraps=ls
-		if isatty 1
+	function ls --wraps=ls --inherit-variable ls
+		# if isatty 1
 			grc ls --color=always $argv
-		else
-			eval ls $argv
-		end
+		# else
+		# 	ls $argv
+		# end
 	end
 end

@@ -10,7 +10,13 @@ alias l 'ls -CF'
 alias grepc 'grep --color="always"'
 alias lessc 'less -R'
 
-set -x -g PATH /usr/local/bin $PATH
-set -x -g PATH /usr/local/sbin $PATH
-set -x -g PATH $HOME/.local/bin $PATH
-set -x -g PATH $HOME/.local/sbin $PATH
+for _PATH in \
+	/usr/local/bin \
+	/usr/local/sbin \
+	$HOME/.local/bin \
+	$HOME/.local/sbin \
+	/home/linuxbrew/.linuxbrew/bin \
+	;
+	test -d $_PATH || continue
+	set -xg PATH $_PATH $PATH
+end

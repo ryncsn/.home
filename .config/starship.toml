@@ -23,7 +23,7 @@ command_timeout=3000
 scan_timeout=3000
 
 [shlvl]
-format="[ $shlvl ](bg:black fg:$style)[](fg:black bg:bright-white)"
+format="[ $shlvl ](bg:black fg:$style)[](fg:black bg:235)"
 disabled=false
 symbol=""
 
@@ -34,8 +34,8 @@ format="[ $hostname ]($style)[](fg:bright-white bg:235)"
 
 [memory_usage]
 threshold=0
-style="fg:bright-black bg:bright-white"
-format="\b[  ${ram}( 易${swap}) ]($style)[](fg:bright-white bg:235)"
+style="fg:bright-black bg:235"
+format="[  ${ram}( 易${swap})]($style)[](fg:235 bg:235)"
 disabled=false
 
 # harware config
@@ -46,36 +46,37 @@ empty_symbol=" "
 discharging_symbol=" "
 charging_symbol=" "
 full_symbol=" "
-format="[ $symbol$percentage ]($style)[](fg:235 bg:white)"
+format="[ $symbol$percentage ]($style)"
 
 [[battery.display]]
 threshold=15
-style="bold bright-red bg:235"
+style="bright-red bg:235"
 
 [[battery.display]]
 threshold=50
-style="bold yellow bg:235"
+style="yellow bg:235"
 
 [[battery.display]]
-threshold=85
-style="bold green bg:235"
+threshold=99
+style="green bg:235"
 
 [[battery.display]]
 threshold=100
-style="bold bright-black bg:235"
+style="bright-black bg:235"
 
 [username]
 show_always=true
-style_user="bg:white fg:black"
-style_root="bg:white fg:bright-red bold"
-format="[ $user ]($style)[](fg:white bg:bright-black)"
+style_user="bg:245 fg:black"
+style_root="bg:245 fg:bright-red bold"
+format="[](fg:235 bg:245)[ $user ]($style)[](fg:245 bg:242)"
 
 [directory]
 truncate_to_repo=true
 truncation_length=3
 fish_style_pwd_dir_length=1
-style="bg:bright-black bold"
-format="[ $path ]($style)[$read_only]($style)[](fg:bright-black) "
+style="bg:242 bold"
+# XXX: 242 -> 238
+format="[ $path ]($style)[$read_only]($style)[](fg:238) "
 read_only=" "
 truncation_symbol="…/"
 
@@ -143,14 +144,15 @@ recognize_signal_code=true
 disabled=false
 map_symbol=true
 pipestatus=false
-format="[](fg:235 bg:red)[ $symbol$status ]($style)"
-style="bold white bg:red"
+format="[](fg:235 bg:124)[ $symbol$status ]($style)"
+style="bold white bg:124"
 
 [character]
 format="$symbol "
 disabled=false
 success_symbol="[](fg:235 bg:green)[](green)"
-error_symbol="[](red)"
+# XXX: 124 -> 52
+error_symbol="[](52)"
 vicmd_symbol="[](cyan)"
 
 # Nerdfonts

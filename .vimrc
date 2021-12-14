@@ -129,6 +129,7 @@ let g:airline_powerline_fonts = 1
 " Buffer jump
 nmap <F5> :buffers<CR>:buffer<Space>
 nmap <F8> :TagbarToggle<CR>
+nnoremap <C-]> g<C-]>
 
 " Default configs
 syntax on
