@@ -1,5 +1,6 @@
 #!/bin/bash
 
+SUDO=sudo
 OS=$(uname -s)
 
 _checkPwd(){
@@ -26,7 +27,7 @@ _checkTools(){
             # XXX: This only work on Fedora
             # TODO: use rustup
             # TODO: "grc" "terminal-notifier" ?
-            local _tools=( "git" "curl" "vimx,vim-X11" "fedpkg" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "cargo" "starship"
+            local _tools=( "git" "curl" "vimx,vim-X11" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "cargo" "starship"
     ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
             _installer=( "sudo" "dnf" "install" "-y" )
             ;;
@@ -102,7 +103,7 @@ _deployInstall(){
     fi
 
     if [[ ! -d ~/.vim/bundle/Vundle.vim/.git ]]; then
-        echo "Installing Theme..."
+        echo "Installing Vundle..."
         git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     fi
 }
@@ -125,6 +126,10 @@ _do_syncDotFiles() {
         -not -path "./distros/*" \
         -print0)
     popd || { echo "Failed popd $_root"; exit 1;}
+}
+
+_updateEtc() {
+        $SUDO sed -i /etc/systemd/logind.conf -e "s/.*HandleLidSwitch=.*/HandleLidSwitch=ignore/g"
 }
 
 _syncDotFiles() {
@@ -160,15 +165,15 @@ _vimUpdate() {
 
 _getHelm() {
     # TODO: Hardening
-    if ! command -v brew &> /dev/null; then
+    if ! command -v helm &> /dev/null; then
         curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | \
             HELM_INSTALL_DIR=$HOME/.local/bin USE_SUDO=false bash
     fi
 }
 
 _helmDeploy() {
-    helm repo add jenkins https://charts.jenkins.io
-    helm repo add ceph-csi https://ceph.github.io/csi-charts
+    "$HOME/.local/bin/helm" repo add jenkins https://charts.jenkins.io
+    "$HOME/.local/bin/helm" repo add ceph-csi https://ceph.github.io/csi-charts
 }
 
 _helmUpdate() {
@@ -201,7 +206,7 @@ _doDeploy(){
     _vimDeploy
     _rebuildYCM
 
-    echo "Now go install Nerf Font"
+    _updateEtc
 }
 
 _checkPwd || exit 1
