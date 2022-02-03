@@ -23,7 +23,7 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "['<Super>
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 10
-gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
+# gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
 gsettings set org.gnome.shell.keybindings switch-to-application-1 []
 gsettings set org.gnome.shell.keybindings switch-to-application-2 []
 gsettings set org.gnome.shell.keybindings switch-to-application-3 []
@@ -34,4 +34,9 @@ gsettings set org.gnome.shell.keybindings switch-to-application-7 []
 gsettings set org.gnome.shell.keybindings switch-to-application-8 []
 gsettings set org.gnome.shell.keybindings switch-to-application-9 []
 
-echo "TODO: <Super>Enter to terminal"
+dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'gnome-terminal'"
+dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name "'Terminal'"
+dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding "'<Super>Return'"
+
+# Don't blank screen on idle
+dconf write /org/gnome/desktop/session/idle-delay 'uint32 0'

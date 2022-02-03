@@ -27,7 +27,7 @@ _checkTools(){
             # XXX: This only work on Fedora
             # TODO: use rustup
             # TODO: "grc" "terminal-notifier" ?
-            local _tools=( "git" "curl" "vimx,vim-X11" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "cargo" "starship"
+            local _tools=( "git" "curl" "vimx,vim-X11" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "cargo" "starship" "flatpak"
     ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
             _installer=( "sudo" "dnf" "install" "-y" )
             ;;
@@ -180,6 +180,10 @@ _helmUpdate() {
     "$HOME/.local/bin/helm" repo update
 }
 
+_flatpakDeploy() {
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+}
+
 _doUpdate() {
     _syncDotFiles
     _checkTools
@@ -200,6 +204,8 @@ _doDeploy(){
 
     _getHelm
     _helmDeploy
+
+    _flatpakDeploy
 
     _deployInstall
 
