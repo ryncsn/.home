@@ -17,6 +17,7 @@ echo "---
   tasks:" > "$TEMP"
 
 while [ $# -gt 0 ]; do
+    echo $1
     case $1 in
         -2 )
             PYTHON_VERSION=2
@@ -37,6 +38,9 @@ while [ $# -gt 0 ]; do
                     shift
                     ;;
                 -K | --ask-pass | -k | --ask-become-pass | -b | --become )
+                    EXTRA_ARGS="$EXTRA_ARGS $1"
+                    ;;
+                * )
                     EXTRA_ARGS="$EXTRA_ARGS $1"
                     ;;
             esac
@@ -75,6 +79,9 @@ while [ $# -gt 0 ]; do
                     INVENTORY_SET=1
                     ARG_INVENTORY="$ARG_INVENTORY$1,"
                 fi
+            else
+                INVENTORY_SET=1
+                ARG_INVENTORY="$ARG_INVENTORY$1,"
             fi
     esac
     shift
