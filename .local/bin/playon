@@ -1,0 +1,91 @@
+#!/usr/bin/env sh
+# shellcheck disable=SC2086,SC2089,SC2090
+
+PYTHON_VERSION=3
+INVENTORY_SET=0
+INVENTORY=""
+ARG_INVENTORY=""
+ARGS=""
+EXTRA_ARGS=""
+LAST_ARG=""
+TEMP=$(mktemp -p "$(pwd)" playon.XXXXXX)
+
+trap 'rm "$TEMP"' EXIT
+
+echo "---
+- hosts: all
+  tasks:" > "$TEMP"
+
+while [ $# -gt 0 ]; do
+    case $1 in
+        -2 )
+            PYTHON_VERSION=2
+            ;;
+        -* )
+            case $1 in
+                --inventory | -i | --inventory-file )
+                    EXTRA_ARGS="$EXTRA_ARGS $1 $2"
+                    shift
+                    INVENTORY_SET=1
+                    ;;
+                --skip-tags | --start-at-task | --vault-id | --vault-password-file | -M | --module-path | \
+                -e | --extra-vars | -f | --forks | -l | --limit | -t | --tags | \
+                --private-key | --key-file | --scp-extra-args | --sftp-extra-args | --ssh-common-args | --ssh-extra-args | \
+                -T | --timeout | -c | --connection | -u | --user | \
+                --become-method | --become-user )
+                    EXTRA_ARGS="$EXTRA_ARGS $1 $2"
+                    shift
+                    ;;
+                -K | --ask-pass | -k | --ask-become-pass | -b | --become )
+                    EXTRA_ARGS="$EXTRA_ARGS $1"
+                    ;;
+            esac
+            ;;
+        *.yaml | *.yml )
+            echo "  - name: $1" >> "$TEMP"
+            echo "    import_tasks: $1" >> "$TEMP"
+            ;;
+        * )
+            if [ -d "$1" ]; then
+                {
+                    echo "  - include_role:";
+                    echo "      name: $1";
+                    echo "    tags:";
+                    echo "      - always";
+                } >> "$TEMP"
+            elif [ -f "$1" ]; then
+                INVENTORY_SET=1
+                ARGS="$ARGS -i $1"
+            elif [ $INVENTORY_SET -eq 1 ]; then
+                if (shift;
+                    for i in "$@"; do
+                        case $i in
+                            -*) ;;
+                            *) exit 1;;
+                        esac
+                    done;
+                    exit 0;
+                    ); then
+                    # If inventory already present, consider last arg as cmdline
+                    {
+                        echo "  - name: Run command";
+                        echo "    command: sh -c '$1'";
+                    } >> "$TEMP"
+                else
+                    INVENTORY_SET=1
+                    ARG_INVENTORY="$ARG_INVENTORY$1,"
+                fi
+            fi
+    esac
+    shift
+done
+
+if [ -n "$ARG_INVENTORY" ]; then
+    ARGS="$ARGS -i $ARG_INVENTORY"
+fi
+
+echo "Temporary built playbook: "
+cat "$TEMP"
+
+echo ansible-playbook $ARGS --extra-vars "ansible_python_interpreter=/usr/bin/python$PYTHON_VERSION" $EXTRA_ARGS "$TEMP"
+ansible-playbook $ARGS --extra-vars "ansible_python_interpreter=/usr/bin/python$PYTHON_VERSION" $EXTRA_ARGS "$TEMP"

@@ -172,8 +172,13 @@ _getHelm() {
 }
 
 _helmDeploy() {
+    "$HOME/.local/bin/helm" repo add twuni https://helm.twun.io
+    "$HOME/.local/bin/helm" repo add gitlab http://charts.gitlab.io/
+    "$HOME/.local/bin/helm" repo add nextcloud https://nextcloud.github.io/helm/
     "$HOME/.local/bin/helm" repo add jenkins https://charts.jenkins.io
     "$HOME/.local/bin/helm" repo add ceph-csi https://ceph.github.io/csi-charts
+    "$HOME/.local/bin/helm" repo add projectcalico https://docs.projectcalico.org/charts
+    "$HOME/.local/bin/helm" repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 }
 
 _helmUpdate() {
