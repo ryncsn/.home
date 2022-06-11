@@ -135,7 +135,6 @@ format="[ $time ](bg:235 fg:white)"
 
 [status]
 symbol=""
-success_symbol=" "
 not_executable_symbol=" "
 not_found_symbol=" "
 sigint_symbol=" "
@@ -150,8 +149,7 @@ style="bold white bg:124"
 [character]
 format="$symbol "
 disabled=false
-success_symbol="[](fg:235 bg:green)[](green)"
-# XXX: 124 -> 52
+success_symbol="[](fg:235 bg:green)[](28)"
 error_symbol="[](52)"
 vicmd_symbol="[](cyan)"
 
