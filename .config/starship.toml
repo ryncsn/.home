@@ -19,8 +19,8 @@ $time\
 $status\
 $character"""
 
-command_timeout=3000
-scan_timeout=3000
+command_timeout=1000
+scan_timeout=500
 
 [shlvl]
 format="[ $shlvl ](bg:black fg:$style)[](fg:black bg:235)"

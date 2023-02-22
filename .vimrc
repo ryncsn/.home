@@ -14,11 +14,18 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-" Fish shell
-Plugin 'dag/vim-fish'
-
-" YCM
+" Both YCM and ALE for autocomplete and lint
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'w0rp/ale'
+
+"Airline
+Plugin 'bling/vim-airline'
+
+"Color
+Plugin 'nanotech/jellybeans.vim'
+
+"Auto quotes, parens, brackets etc.
+Plugin 'Raimondi/delimitMate'
 
 " Snips
 Plugin 'SirVer/ultisnips'
@@ -26,15 +33,6 @@ Plugin 'honza/vim-snippets'
 
 "Python indent
 Plugin 'hynek/vim-python-pep8-indent'
-
-"Auto quotes, parens, brackets etc.
-Plugin 'Raimondi/delimitMate'
-
-"Airline
-Plugin 'bling/vim-airline'
-
-"Color
-Plugin 'nanotech/jellybeans.vim'
 
 "Better HTML
 Plugin 'othree/html5.vim'
@@ -45,25 +43,8 @@ Plugin 'tpope/vim-surround'
 " Colored indent
 Plugin 'nathanaelkane/vim-indent-guides'
 
-" Jade support
-Plugin 'digitaltoad/vim-jade'
-
 " Show redanunt spaces
 Plugin 'bitc/vim-bad-whitespace'
-
-" Vue
-Plugin 'posva/vim-vue'
-
-" typescript
-Plugin 'leafgarland/typescript-vim'
-Plugin 'Quramy/tsuquyomi'
-Plugin 'Shougo/vimproc.vim'
-
-" Syntax Check
-Plugin 'w0rp/ale'
-
-" Rust
-Plugin 'rust-lang/rust.vim'
 
 " Auto indent
 Plugin 'tpope/vim-sleuth'
@@ -101,6 +82,7 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 
+" Use YCM for C, Python and some other lang auto complete and syntax check
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
 let g:ycm_confirm_extra_conf=0
@@ -113,6 +95,13 @@ let g:ycm_max_diagnostics_to_display = 4096
 
 let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
+
+nnoremap gl :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap g<S-g> :YcmCompleter GoTo<CR>
+
+" Disable ALE for C
+autocmd BufEnter *.c ALEDisable
+autocmd BufEnter *.h ALEDisable
 
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
@@ -143,31 +132,20 @@ colorscheme jellybeans
 " Colored Indent
 let g:indent_guides_enable_on_vim_startup = 1
 
-" Enable ale linters
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'python': ['flake8'],
-\   'rust': ['cargo'],
-\}
-
-" WEB autocompletion
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-" Javascript
-let javascript_enable_domhtmlcss = 1
-
 " Search for ctag mark file until reach /
 set tags=tags;
 
-" Tag bar show symbols in file order, and always on
-let g:tagbar_sort = 0
-autocmd FileType * :call tagbar#autoopen(0)
+" Tag bar show symbols in file order, and always on unless vimdiff
+if !&diff
+	let g:tagbar_sort = 0
+	autocmd FileType * :call tagbar#autoopen(0)
+endif
 
 " Show hidden/tailing/heading characters
 set list
 set listchars=tab:•\ ,trail:·,extends:❯,precedes:❮,nbsp:×
+set statusline=%F%m%r%h%w\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+set laststatus=2
 
 " For MacOS (Be compatible with GNU/Linux)
 set backspace=indent,eol,start
