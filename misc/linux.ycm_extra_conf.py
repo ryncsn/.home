@@ -3,6 +3,7 @@ import os
 
 # NOTE: Makefile relies on Tabs for indent, sapces won't work
 MAKEFILE_YCM = """
+include Makefile
 
 print_flags: include/config/auto.conf
 	@echo "__YCM_CFLAG_HEADER__"
@@ -40,22 +41,31 @@ def __generate_cflags_cache():
                         arch = keys[i + 1]
                         break
 
-    cmdline = 'cd %s && cp Makefile Makefile.ycm' % (LINUX_DIR)
+    cmdline = 'cd %s && cp Makefile Makefile.ycm' % LINUX_DIR
     ret = os.system(cmdline)
     if ret:
         raise RuntimeError('Failed calling "%s"' % cmdline)
 
-    try:
-        with open("Makefile", "a") as file:
-            file.write(MAKEFILE_YCM)
+    with open("Makefile.ycm", "a") as file:
+        file.write(MAKEFILE_YCM)
 
-        cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" -f Makefile.ycm print_flags > %s' % (LINUX_DIR, arch, CFLAG_CACHE)
-        ret = os.system(cmdline)
-        if ret:
-            os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
-            raise RuntimeError('Failed calling "%s"' % cmdline)
-    finally:
-        os.system('cd %s && mv Makefile.ycm Makefile' % (LINUX_DIR))
+    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" -f Makefile.ycm print_flags > %s' % (LINUX_DIR, arch, CFLAG_CACHE)
+    ret = os.system(cmdline)
+    if ret:
+        os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
+        raise RuntimeError('Failed calling "%s"' % cmdline)
+
+    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" headers' % (LINUX_DIR, arch)
+    ret = os.system(cmdline)
+    if ret:
+        os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
+        raise RuntimeError('Failed calling "%s"' % cmdline)
+
+    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" archprepare' % (LINUX_DIR, arch)
+    ret = os.system(cmdline)
+    if ret:
+        os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
+        raise RuntimeError('Failed calling "%s"' % cmdline)
 
 def __cflags_cache_valid():
     if not os.path.exists(os.path.join(LINUX_DIR, CFLAG_CACHE)):
@@ -72,18 +82,16 @@ def __cflags_cache_valid():
 
     return True
 
-def __get_flags():
+def __get_flags(filename):
     if not __cflags_cache_valid():
         __generate_cflags_cache()
 
     kbuild_flags=[
-        '-I./tools/include/uapi',
-        '-include',
-        './include/linux/types.h',
-        '-include',
-        './include/asm-generic/int-ll64.h',
-        '-include',
-        './include/linux/sched.h',
+        '-lm',
+        '-fms-extensions',
+        '-D__KERNEL__=1',
+        "-Dsection(x)=",
+        "-D__section__(x)=",
     ]
 
     with open(CFLAG_CACHE) as cflag_cache:
@@ -92,21 +100,22 @@ def __get_flags():
             flag = flag.rstrip('\n')
             if flag == "__YCM_CFLAG_HEADER__":
                 continue
-            elif flag.startswith("-f"):
+            if flag.startswith("-mabi="):
                 continue
-            elif flag.startswith("-m"):
+            if flag in ["-fno-allow-store-data-races", "-fconserve-stack"]:
                 continue
-            else:
-                kbuild_flags.append(flag)
+            kbuild_flags.append(flag)
+
+    kbuild_flags += [
+        '-Iarch/dummy/include',
+    ]
 
     return kbuild_flags
 
 # This is the entry point; this function is called by ycmd to produce flags for
 # a file.
-def Settings( **kwargs ):
+def Settings(filename=None, **kwargs):
     return {
-        'flags': __get_flags(),
+        'flags': __get_flags(filename),
         'include_paths_relative_to_dir': DirectoryOfThisScript()
     }
-
-print(__get_flags())
