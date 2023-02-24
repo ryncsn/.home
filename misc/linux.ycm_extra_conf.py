@@ -61,7 +61,7 @@ def __generate_cflags_cache():
         os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
         raise RuntimeError('Failed calling "%s"' % cmdline)
 
-    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" archprepare' % (LINUX_DIR, arch)
+    cmdline = 'cd %s && make -i CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" prepare' % (LINUX_DIR, arch)
     ret = os.system(cmdline)
     if ret:
         os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
