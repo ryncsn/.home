@@ -20,14 +20,14 @@ _checkTools(){
                 exit 1
             fi
             # TODO: use rustup
-            _tools=( "git" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "helm" "rustup-init" "starship" "grc" "terminal-notifier")
+            _tools=( "git" "git-delta" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "helm" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt", "isync")
             _installer=( "brew" "install" )
             ;;
         Linux )
             # XXX: This only work on Fedora
             # TODO: use rustup
             # TODO: "grc" "terminal-notifier" ?
-            local _tools=( "git" "curl" "vimx,vim-X11" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "cargo" "starship" "flatpak"
+            local _tools=( "git" "git-delta" "curl" "vimx,vim-X11" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "cargo" "starship" "flatpak"
     ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
             _installer=( "sudo" "dnf" "install" "-y" )
             ;;

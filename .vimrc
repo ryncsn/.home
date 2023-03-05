@@ -1,4 +1,3 @@
-set shell=/bin/bash
 set nocompatible
 
 syntax on
@@ -88,8 +87,7 @@ filetype plugin indent on    " required
 " Use YCM for C, Python and some other lang auto complete and syntax check
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
-let g:ycm_confirm_extra_conf=0
-let g:ycm_collect_indentifiers_from_tags_files=1
+let g:ycm_confirm_extra_conf=1
 let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_seed_indentifiers_with_syntax=1
 let g:ycm_complete_in_comments=1
