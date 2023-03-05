@@ -1,9 +1,73 @@
+[core]
+	pager = delta
+
 [user]
 	email = ryncsn@gmail.com
 	name = Kairui Song
+
 [color]
 	ui = auto
+
 [credential]
 	helper = cache --timeout=3600
+	helper = store
+
 [push]
 	default = simple
+
+[sendemail]
+	confirm = auto
+	smtpServer = smtp.gmail.com
+	smtpServerPort = 587
+	smtpEncryption = tls
+	smtpUser = ryncsn@gmail.com
+
+[format]
+	from = true
+	signoff = true
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true # use n and N to move between diff sections
+	dark = true
+	syntax-theme = Dracula
+	line-numbers = true
+
+	file-added-label = [+]
+	file-copied-label = [=]
+	file-modified-label = [M]
+	file-removed-label = [-]
+	file-renamed-label = [R]
+	file-style = white
+	file-decoration-style = "#434C5E" ul
+
+	hunk-header-decoration-style = none
+	hunk-header-file-style = "#999999" ul bold
+	hunk-header-line-number-style = bold "#03a4ff" ul bold
+	hunk-header-style = file line-number syntax bold
+
+	line-numbers-left-format = "{nm:>3}┊"
+	line-numbers-left-style = gray
+	line-numbers-right-format = "{np:>3} "
+	line-numbers-right-style = green
+
+	minus-style = syntax dim "#2f0f0f"
+	minus-emph-style = syntax "#4f1917"
+	plus-style = syntax "#0e3f19"
+	plus-emph-style = syntax "#176515"
+	zero-style = syntax
+
+	merge-conflict-begin-symbol = ─-
+	merge-conflict-end-symbol = -─
+	merge-conflict-ours-diff-header-style = red bold
+	merge-conflict-ours-diff-header-decoration-style = "#434C5E" ul
+	merge-conflict-theirs-diff-header-style = green bold
+	merge-conflict-theirs-diff-header-decoration-style = "#434C5E" ul
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = no
