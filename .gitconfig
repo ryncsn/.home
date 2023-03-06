@@ -40,7 +40,7 @@
 	file-modified-label = [M]
 	file-removed-label = [-]
 	file-renamed-label = [R]
-	file-style = white
+	file-style = orange
 	file-decoration-style = "#434C5E" ul
 
 	hunk-header-decoration-style = none

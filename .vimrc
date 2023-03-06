@@ -29,15 +29,9 @@ Plugin 'Raimondi/delimitMate'
 "Rainbow parens
 Plugin 'luochen1990/rainbow'
 
-" Snips
+"Snips
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-
-"Python indent
-Plugin 'hynek/vim-python-pep8-indent'
-
-"Better HTML
-Plugin 'othree/html5.vim'
 
 " Surrounding
 Plugin 'tpope/vim-surround'
@@ -53,6 +47,15 @@ Plugin 'tpope/vim-sleuth'
 
 " Tagbar
 Plugin 'majutsushi/tagbar'
+
+"Python indent
+Plugin 'hynek/vim-python-pep8-indent'
+
+"Better HTML
+Plugin 'othree/html5.vim'
+
+"Fish shell support
+Plugin 'dag/vim-fish'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -87,7 +90,7 @@ filetype plugin indent on    " required
 " Use YCM for C, Python and some other lang auto complete and syntax check
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
-let g:ycm_confirm_extra_conf=1
+let g:ycm_confirm_extra_conf=0
 let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_seed_indentifiers_with_syntax=1
 let g:ycm_complete_in_comments=1
