@@ -1,3 +1,3 @@
+set -x LC_ALL en_US.UTF-8
+set -x LC_CTYPE en_US.UTF-8
 set -x TERM xterm-256color
-set -x ANSIBLE_COW_SELECTION random
-

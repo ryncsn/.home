@@ -16,6 +16,7 @@ for _PATH in \
 	$HOME/.local/bin \
 	$HOME/.local/sbin \
 	/home/linuxbrew/.linuxbrew/bin \
+	/opt/homebrew/opt/*/libexec/gnubin \
 	;
 	test -d $_PATH || continue
 	set -xg PATH $_PATH $PATH
