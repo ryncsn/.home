@@ -59,11 +59,9 @@
 	plus-emph-style = syntax "#176515"
 	zero-style = syntax
 
-	merge-conflict-begin-symbol = ─-
-	merge-conflict-end-symbol = -─
-	merge-conflict-ours-diff-header-style = red bold
+	merge-conflict-ours-diff-header-style = red bold box
 	merge-conflict-ours-diff-header-decoration-style = "#434C5E" ul
-	merge-conflict-theirs-diff-header-style = green bold
+	merge-conflict-theirs-diff-header-style = green bold box
 	merge-conflict-theirs-diff-header-decoration-style = "#434C5E" ul
 
 [merge]
