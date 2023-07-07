@@ -20,7 +20,7 @@ _checkTools(){
                 exit 1
             fi
             # TODO: use rustup
-            _tools=( "git" "git-delta" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "helm" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt", "isync")
+            _tools=( "git" "git-delta" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "helm" "rust" "md5sha1sum" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt" "isync")
             _installer=( "brew" "install" )
             ;;
         Linux )
