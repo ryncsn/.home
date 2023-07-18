@@ -35,17 +35,17 @@ format="[ $hostname ]($style)[](fg:bright-white bg:235)"
 [memory_usage]
 threshold=0
 style="fg:bright-black bg:235"
-format="[  ${ram}( 易${swap})]($style)[](fg:235 bg:235)"
+format="[ 󰍛 ${ram}( 󰓢 ${swap})]($style)[](fg:235 bg:235)"
 disabled=false
 
 # harware config
 [battery]
 disabled=false
-unknown_symbol="襤"
-empty_symbol=" "
-discharging_symbol=" "
-charging_symbol=" "
-full_symbol=" "
+unknown_symbol="󰂑 "
+empty_symbol="󰂎 "
+discharging_symbol="󱟞 "
+charging_symbol="󰂄 "
+full_symbol="󰁹 "
 format="[ $symbol$percentage ]($style)"
 
 [[battery.display]]
