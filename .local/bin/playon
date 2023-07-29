@@ -3,11 +3,9 @@
 
 PYTHON_VERSION=3
 INVENTORY_SET=0
-INVENTORY=""
 ARG_INVENTORY=""
 ARGS=""
 EXTRA_ARGS=""
-LAST_ARG=""
 TEMP=$(mktemp -p "$(pwd)" playon.XXXXXX)
 
 trap 'rm "$TEMP"' EXIT
