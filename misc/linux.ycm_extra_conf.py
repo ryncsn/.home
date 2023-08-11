@@ -41,27 +41,22 @@ def __generate_cflags_cache():
                         arch = keys[i + 1]
                         break
 
-    cmdline = 'cd %s && cp Makefile Makefile.ycm' % LINUX_DIR
-    ret = os.system(cmdline)
-    if ret:
-        raise RuntimeError('Failed calling "%s"' % cmdline)
-
-    with open("Makefile.ycm", "a") as file:
+    with open("Makefile.ycm", "w") as file:
         file.write(MAKEFILE_YCM)
 
-    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" -f Makefile.ycm print_flags > %s' % (LINUX_DIR, arch, CFLAG_CACHE)
+    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" -f Makefile.ycm print_flags > %s' % (LINUX_DIR, CFLAG_CACHE)
     ret = os.system(cmdline)
     if ret:
         os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
         raise RuntimeError('Failed calling "%s"' % cmdline)
 
-    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" headers' % (LINUX_DIR, arch)
+    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" headers' % (LINUX_DIR)
     ret = os.system(cmdline)
     if ret:
         os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
         raise RuntimeError('Failed calling "%s"' % cmdline)
 
-    cmdline = 'cd %s && make -i CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" prepare' % (LINUX_DIR, arch)
+    cmdline = 'cd %s && yes '' | make -i CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" prepare' % (LINUX_DIR, arch)
     ret = os.system(cmdline)
     if ret:
         os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
@@ -88,7 +83,6 @@ def __get_flags(filename):
 
     kbuild_flags=[
         '-lm',
-        '-fms-extensions',
         '-D__KERNEL__=1',
         "-Dsection(x)=",
         "-D__section__(x)=",
