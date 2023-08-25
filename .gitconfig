@@ -1,5 +1,7 @@
 [core]
 	pager = delta
+	abbrev = 12
+	fixes = Fixes: %h (\"%s\")
 
 [user]
 	email = ryncsn@gmail.com
