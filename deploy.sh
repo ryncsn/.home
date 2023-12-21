@@ -138,12 +138,7 @@ _syncDotFiles() {
         Darwin )
             _do_syncDotFiles ./distros/macos
             ;;
-        Linux )
-            # XXX: This only work on Fedora
-            _do_syncDotFiles ./distros/fedora
-            ;;
         * )
-            echo "Unknown OS $OS"
             ;;
     esac
 }
