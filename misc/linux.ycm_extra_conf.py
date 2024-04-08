@@ -3,8 +3,6 @@ import os
 
 # NOTE: Makefile relies on Tabs for indent, sapces won't work
 MAKEFILE_YCM = """
-include Makefile
-
 print_flags: include/config/auto.conf
 	@echo "__YCM_CFLAG_HEADER__"
 	@$(foreach flag, $(KBUILD_CFLAGS), echo $(flag);)
@@ -27,7 +25,7 @@ if not os.path.exists(os.path.join(LINUX_DIR, ".config")):
     raise RuntimeError('Need a valid .config or "make config" first for auto-completion to work.')
 
 def __generate_cflags_cache():
-    arch=None
+    arch_param=""
 
     # Get arch from .config
     with open(".config") as config:
@@ -38,25 +36,35 @@ def __generate_cflags_cache():
             for i, key in enumerate(keys):
                 if key == "Linux":
                     if i + 1 < len(keys):
-                        arch = keys[i + 1]
+                        arch_param = "ARCH=" + keys[i + 1]
                         break
 
-    with open("Makefile.ycm", "w") as file:
-        file.write(MAKEFILE_YCM)
+    with open("Makefile", "r") as makefile:
+        with open("Makefile.ycm", "w") as file:
+            line = makefile.readline()
+            while line:
+                file.write(line)
+                if line.startswith("NAME ="):
+                    file.write(MAKEFILE_YCM)
+                line = makefile.readline()
 
-    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" -f Makefile.ycm print_flags > %s' % (LINUX_DIR, CFLAG_CACHE)
+    # I haven't found a better way to add a new target to Makefile...
+    os.system("cd %s && mv Makefile Makefile.ycm_bak" % LINUX_DIR)
+    cmdline = 'cd %s && mv Makefile.ycm Makefile && make CROSS_COMPILE="scripts/dummy-tools/" %s print_flags > %s' % (LINUX_DIR, arch_param, CFLAG_CACHE)
+    os.system("cd %s && mv Makefile.ycm_bak Makefile" % LINUX_DIR)
     ret = os.system(cmdline)
     if ret:
         os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
         raise RuntimeError('Failed calling "%s"' % cmdline)
 
-    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" headers' % (LINUX_DIR)
+    cmdline = 'cd %s && make CROSS_COMPILE="scripts/dummy-tools/" %s headers' % (LINUX_DIR, arch_param)
     ret = os.system(cmdline)
     if ret:
         os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
         raise RuntimeError('Failed calling "%s"' % cmdline)
 
-    cmdline = 'cd %s && yes '' | make -i CROSS_COMPILE="scripts/dummy-tools/" ARCH="%s" prepare' % (LINUX_DIR, arch)
+    # Prepare dynamic include headers as much as possible, with a few missing headers (due to dependency or toolchain limitation) auto complete can still work.
+    cmdline = 'cd %s && yes '' | make -i CROSS_COMPILE="scripts/dummy-tools/" %s prepare' % (LINUX_DIR, arch_param)
     ret = os.system(cmdline)
     if ret:
         os.remove(os.path.join(LINUX_DIR, CFLAG_CACHE))
@@ -83,9 +91,16 @@ def __get_flags(filename):
 
     kbuild_flags=[
         '-lm',
-        '-D__KERNEL__=1',
         "-Dsection(x)=",
         "-D__section__(x)=",
+        "-Dlikely(x)=x",
+        "-Dunlikely(x)=x",
+        "-Dlikely_notrace(x)=x",
+        "-Dunlikely_notrace(x)=x",
+        "-DEXPORT_SYMBOL_GPL(x)=",
+        "-DEXPORT_SYMBOL(x)=",
+        "-Dbarrier(x)=",
+        "-DRELOC_HIDE(x, y)=(x + y)",
     ]
 
     with open(CFLAG_CACHE) as cflag_cache:

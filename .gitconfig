@@ -29,7 +29,7 @@
 	signoff = true
 
 [interactive]
-	diffFilter = delta --color-only
+	diffFilter = delta
 
 [delta]
 	navigate = true # use n and N to move between diff sections
@@ -45,6 +45,8 @@
 	file-style = orange
 	file-decoration-style = "#434C5E" ul
 
+	side-by-side = true
+	hunk-header = syntax
 	hunk-header-decoration-style = none
 	hunk-header-file-style = "#999999" ul bold
 	hunk-header-line-number-style = bold "#03a4ff" ul bold
