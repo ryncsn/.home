@@ -3,19 +3,26 @@
 
 PYTHON_VERSION=3
 INVENTORY_SET=0
-ARG_INVENTORY=""
 ARGS=""
 EXTRA_ARGS=""
-TEMP=$(mktemp -p "$(pwd)" playon.XXXXXX)
+TEMP_PLAYBOOK=$(mktemp -p "$(pwd)" playon.book.XXXXXX)
+TEMP_INVENTORY=$(mktemp -p "$(pwd)" playon.inv.XXXXXX)
 
-trap 'rm "$TEMP"' EXIT
+trap 'rm "$TEMP_PLAYBOOK"; rm "$TEMP_INVENTORY"' EXIT
 
-echo "---
+if [ "$1" = "localhost" ]; then
+    echo "---
+- hosts: localhost
+  tasks:" > "$TEMP_PLAYBOOK"
+    echo "127.0.0.1 ansible_connection=local" >> $TEMP_INVENTORY
+    shift
+else
+    echo "---
 - hosts: all
-  tasks:" > "$TEMP"
+  tasks:" > "$TEMP_PLAYBOOK"
+fi
 
 while [ $# -gt 0 ]; do
-    echo $1
     case $1 in
         -2 )
             PYTHON_VERSION=2
@@ -44,8 +51,12 @@ while [ $# -gt 0 ]; do
             esac
             ;;
         *.yaml | *.yml )
-            echo "  - name: $1" >> "$TEMP"
-            echo "    import_tasks: $1" >> "$TEMP"
+            echo "  - name: $1" >> "$TEMP_PLAYBOOK"
+            echo "    import_tasks: $1" >> "$TEMP_PLAYBOOK"
+            ;;
+        localhost )
+            echo "localhost have to be the first param, and have to be the only inventory."
+            exit 1
             ;;
         * )
             if [ -d "$1" ]; then
@@ -54,7 +65,7 @@ while [ $# -gt 0 ]; do
                     echo "      name: $1";
                     echo "    tags:";
                     echo "      - always";
-                } >> "$TEMP"
+                } >> "$TEMP_PLAYBOOK"
             elif [ -f "$1" ]; then
                 INVENTORY_SET=1
                 ARGS="$ARGS -i $1"
@@ -72,14 +83,14 @@ while [ $# -gt 0 ]; do
                     {
                         echo "  - name: Run command";
                         echo "    command: sh -c '$1'";
-                    } >> "$TEMP"
+                    } >> "$TEMP_PLAYBOOK"
                 else
                     INVENTORY_SET=1
-                    ARG_INVENTORY="$ARG_INVENTORY$1,"
+                    echo "$1" >> $TEMP_INVENTORY
                 fi
             else
                 INVENTORY_SET=1
-                ARG_INVENTORY="$ARG_INVENTORY$1,"
+                echo "$1" >> $TEMP_INVENTORY
             fi
     esac
     shift
@@ -90,7 +101,10 @@ if [ -n "$ARG_INVENTORY" ]; then
 fi
 
 echo "Temporary built playbook: "
-cat "$TEMP"
+cat "$TEMP_PLAYBOOK"
 
-echo ansible-playbook $ARGS --extra-vars "ansible_python_interpreter=/usr/bin/python$PYTHON_VERSION" $EXTRA_ARGS "$TEMP"
-ansible-playbook $ARGS --extra-vars "ansible_python_interpreter=/usr/bin/python$PYTHON_VERSION" $EXTRA_ARGS "$TEMP"
+echo "Temporary inventory: "
+cat $TEMP_INVENTORY
+
+echo ansible-playbook -i $TEMP_INVENTORY $ARGS --extra-vars "ansible_python_interpreter=/usr/bin/python$PYTHON_VERSION" $EXTRA_ARGS "$TEMP_PLAYBOOK"
+ansible-playbook $ARGS --extra-vars "ansible_python_interpreter=/usr/bin/python$PYTHON_VERSION" $EXTRA_ARGS "$TEMP_PLAYBOOK"
