@@ -19,8 +19,8 @@ $time\
 $status\
 $character"""
 
-command_timeout=1000
-scan_timeout=500
+command_timeout=1250
+scan_timeout=250
 
 [shlvl]
 format="[ $shlvl ](bg:black fg:$style)[](fg:black bg:235)"
@@ -97,15 +97,15 @@ format="[$hash$tag]($style) "
 
 [git_status]
 format='[$all_status$ahead_behind]($style)'
-conflicted="[|   ${count} ](fg:red)"
-staged="[| S $count ](fg:green)"
-modified="[|  ${count} ](fg:red)"
-renamed="[| R ${count} ](fg:red)"
+conflicted="[|  ${count} ](fg:red)"
+staged="[|  $count ](fg:yellow)"
+modified="[|  ${count} ](fg:yellow)"
+renamed="[|  ${count} ](fg:red)"
 deleted="[|  ${count} ](fg:red)"
-untracked="[| ﬒ ${count} ](fg:red)"
-stashed="|  ${count} "
-ahead="[|  ${count} ](fg:purple)"
-behind="[|  ${count} ](fg:yellow)"
+untracked="[|  ${count} ](fg:bright-black)"
+stashed="[|  ${count} ](fg:red)"
+ahead="[|   ${count} ](fg:purple)"
+behind="[|   ${count} ](fg:yellow)"
 
 [git_metrics]
 disabled=false
@@ -135,8 +135,8 @@ format="[ $time ](bg:235 fg:white)"
 
 [status]
 symbol=""
-not_executable_symbol=" "
-not_found_symbol=" "
+not_executable_symbol="! "
+not_found_symbol="! "
 sigint_symbol=" "
 signal_symbol="! "
 recognize_signal_code=true
