@@ -20,15 +20,14 @@ _checkTools(){
                 exit 1
             fi
             # TODO: use rustup
-            _tools=( "git" "git-delta" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "helm" "rust" "md5sha1sum" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt" "isync" "fortune")
+            _tools=( "git" "git-delta" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "helm" "md5sha1sum" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt" "isync")
             _installer=( "brew" "install" )
             ;;
         Linux )
             # XXX: This only work on Fedora
             # TODO: use rustup
             # TODO: "grc" "terminal-notifier" ?
-            local _tools=( "git" "git-delta" "curl" "vimx,vim-X11" "bison" "sed" "sh,bash" "fish" "rustc" "cmake" "g++" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "pipenv" "cargo" "flatpak" "fortune"
-    ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
+            local _tools=( "git" "git-delta" "curl" "vimx,vim-X11" "bison" "sed" "sh,bash" "fish" "cmake" "g++" "gcc" "lld" "clang" "rustup" "dwarves" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "fortune" ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
             _installer=( "sudo" "dnf" "install" "-y" )
             ;;
         * )
@@ -202,17 +201,17 @@ _doDeploy(){
     _syncDotFiles
     _checkTools
 
-    _getHelm
-    _helmDeploy
+    # _getHelm
+    # _helmDeploy
 
-    _flatpakDeploy
+    # _flatpakDeploy
 
     _deployInstall
 
     _vimDeploy
     _rebuildYCM
 
-    _updateEtc
+    # _updateEtc
 }
 
 _checkPwd || exit 1
@@ -228,3 +227,6 @@ case $1 in
         _doDeploy
         ;;
 esac
+
+# TODO: Hack Font
+# Terminal style
