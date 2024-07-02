@@ -1,4 +1,4 @@
-if test "$(type -t resize 2>/dev/null)" = "file"
+if test "(type -t resize 2>/dev/null)" = "file"
 	set _resize (which resize)
 	function resize --wraps=resize --inherit-variable resize
 		for line in ($_resize | grep =)
