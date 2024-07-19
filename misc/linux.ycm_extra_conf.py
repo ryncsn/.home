@@ -90,15 +90,9 @@ def __get_flags(filename):
         __generate_cflags_cache()
 
     kbuild_flags=[
-        '-lm',
         "-Dsection(x)=",
         "-D__section__(x)=",
-        "-Dlikely(x)=x",
-        "-Dunlikely(x)=x",
-        "-Dlikely_notrace(x)=x",
-        "-Dunlikely_notrace(x)=x",
-        "-DEXPORT_SYMBOL_GPL(x)=",
-        "-DEXPORT_SYMBOL(x)=",
+        "-D__KERNEL__=1",
         "-Dbarrier(x)=",
         "-DRELOC_HIDE(x, y)=(x + y)",
     ]
@@ -117,6 +111,7 @@ def __get_flags(filename):
 
     kbuild_flags += [
         '-Iarch/dummy/include',
+        '-Iusr/include',
     ]
 
     return kbuild_flags

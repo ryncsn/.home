@@ -3,6 +3,8 @@
 SUDO=sudo
 OS=$(uname -s)
 
+KERNEL_PKGS="openssl-devel-engine"
+
 _checkPwd(){
     if [[ ! $(pwd) == */.home ]]; then
         echo "This is script is only used for fast deploy of my own env files"
