@@ -10,3 +10,5 @@ if [[ $SHELL != *bash ]]; then
     SHLVL=$((SHLVL + 1))
     SHELL=$(which bash)
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

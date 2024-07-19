@@ -37,7 +37,7 @@ _checkTools(){
             ;;
     esac
 
-    for i in ${_tools[*]}; do
+    for i in "${_tools[@]}"; do
         [ "${i%,*}" ] || continue
         if ! command -v "${i%,*}" &> /dev/null; then
             echo "'$i' is needed but not installed"
@@ -49,7 +49,7 @@ _checkTools(){
         echo "Please ensure follwing tools are all installed:"
         local _inst
         _inst=( )
-        for i in ${_tools[*]}; do
+        for i in "${_tools[@]}"; do
             _inst+=( "${i#*,}" )
         done
         echo "Trying to install missing packages...:"
