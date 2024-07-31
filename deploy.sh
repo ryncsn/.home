@@ -30,7 +30,7 @@ _checkTools(){
             # TODO: use rustup
             # TODO: "grc" "terminal-notifier" ?
             local _tools=( "git" "git-delta" "curl" "vim" "bison" "sed" "sh,bash" "fish" "cmake" "g++" "gcc" "lld" "clang" "rustup" "dwarves" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "fortune" ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
-            _installer=( "sudo" "dnf" "install" "-y" )
+            _installer=( "sudo" "dnf" "install" "-y" "--skip-broken" )
             ;;
         * )
             echo "Unknown OS $OS"
