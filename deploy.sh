@@ -29,7 +29,7 @@ _checkTools(){
             # XXX: This only work on Fedora
             # TODO: use rustup
             # TODO: "grc" "terminal-notifier" ?
-            local _tools=( "git" "git-delta" "curl" "vimx,vim-X11" "bison" "sed" "sh,bash" "fish" "cmake" "g++" "gcc" "lld" "clang" "rustup" "dwarves" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "fortune" ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
+            local _tools=( "git" "git-delta" "curl" "vim" "bison" "sed" "sh,bash" "fish" "cmake" "g++" "gcc" "lld" "clang" "rustup" "dwarves" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "fortune" ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
             _installer=( "sudo" "dnf" "install" "-y" )
             ;;
         * )
@@ -85,6 +85,10 @@ _symLink(){
 }
 
 _deployInstall(){
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+    curl -sS https://starship.rs/install.sh | sh
+
     if ! fish -c "fisher -v" &>/dev/null; then
         echo "Installing Fisher..."
         # TODO: Hardening
