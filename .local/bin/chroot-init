@@ -1,0 +1,43 @@
+#!/usr/bin/env sh
+
+_get_root_param() {
+	while [ $# -gt 0 ]; do
+		case $1 in
+			-* )
+				;;
+			* )
+				echo "$1"
+				return
+				;;
+		esac
+		shift
+	done
+}
+
+SUDO=sudo
+ROOT=$(_get_root_param "$@")
+BIND_MNT="proc sys dev"
+
+readonly ROOT BIND_MNT
+
+if ! which chroot > /dev/null; then
+	echo "chroot binary is not available" > /dev/stderr
+	exit 1
+fi
+
+trap '
+for _mnt in $BIND_MNT; do
+	if ! $SUDO umount "$ROOT/$_mnt"; then
+		echo "Failed umount \"$ROOT/$_mnt\", you need to clean up the mount point manually." > /dev/stderr
+	fi
+done
+' EXIT
+
+for _mnt in $BIND_MNT; do
+	if ! $SUDO mount --bind "/$_mnt" "$ROOT/$_mnt"; then
+		echo "Failing setting up mount path '$ROOT/$_mnt'" > /dev/stderr
+		exit 1
+	fi
+done
+
+$SUDO chroot "$@"
