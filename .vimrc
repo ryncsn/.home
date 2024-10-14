@@ -159,3 +159,5 @@ set noswapfile
 
 " For MacOS (Be compatible with GNU/Linux)
 set backspace=indent,eol,start
+
+set spell

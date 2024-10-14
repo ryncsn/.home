@@ -22,14 +22,14 @@ _checkTools(){
                 exit 1
             fi
             # TODO: use rustup
-            _tools=( "git" "git-delta" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "helm" "md5sha1sum" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt" "isync")
+            _tools=( "git" "git-delta" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "helm" "md5sha1sum" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt" "isync" "cowsae" "fortune")
             _installer=( "brew" "install" )
             ;;
         Linux )
             # XXX: This only work on Fedora
             # TODO: use rustup
             # TODO: "grc" "terminal-notifier" ?
-            local _tools=( "git" "git-delta" "curl" "vim" "bison" "sed" "sh,bash" "fish" "cmake" "g++" "gcc" "lld" "clang" "rustup" "dwarves" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "fortune" ",openssl-devel" ",elfutils-devel" ",ncurses-devel" )
+            local _tools=( "git" "git-delta" "curl" "vim" "bison" "sed" "sh,bash" "fish" "cmake" "g++" "gcc" "lld" "clang" "rustup" "dwarves" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "fortune" "fortune-mod" "cowsay" ",openssl-devel" "resize,xterm-resize" ",elfutils-devel" ",ncurses-devel" )
             _installer=( "sudo" "dnf" "install" "-y" "--skip-broken" )
             ;;
         * )
@@ -125,6 +125,7 @@ _do_syncDotFiles() {
             _symLink "$HOME/.home/$_root/$i" "$HOME/$i"
         fi
     done < <(find . -type f \
+        -not -path "./.ssh/authorized_keys" \
         -not -path "./.git/*" \
         -not -path "./deploy.sh" \
         -not -path "./misc/*" \
