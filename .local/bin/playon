@@ -107,4 +107,4 @@ echo "Temporary inventory: "
 cat $TEMP_INVENTORY
 
 echo ansible-playbook -i $TEMP_INVENTORY $ARGS --extra-vars "ansible_python_interpreter=/usr/bin/python$PYTHON_VERSION" $EXTRA_ARGS "$TEMP_PLAYBOOK"
-ansible-playbook $ARGS --extra-vars "ansible_python_interpreter=/usr/bin/python$PYTHON_VERSION" $EXTRA_ARGS "$TEMP_PLAYBOOK"
+ansible-playbook -i $TEMP_INVENTORY $ARGS --extra-vars "ansible_python_interpreter=/usr/bin/python$PYTHON_VERSION" $EXTRA_ARGS "$TEMP_PLAYBOOK"
