@@ -22,14 +22,14 @@ _checkTools(){
                 exit 1
             fi
             # TODO: use rustup
-            _tools=( "git" "git-delta" "curl" "vim" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "helm" "md5sha1sum" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt" "isync" "cowsae" "fortune")
+            _tools=( "git" "git-delta" "curl" "neovim" "ripgrep" "fd" "markdownlint-cli" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop"  "python" "iftop" "flex" "perl" "ansible" "tmux" "helm" "md5sha1sum" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt" "isync" "cowsae" "fortune")
             _installer=( "brew" "install" )
             ;;
         Linux )
             # XXX: This only work on Fedora
             # TODO: use rustup
             # TODO: "grc" "terminal-notifier" ?
-            local _tools=( "git" "git-delta" "curl" "vim" "bison" "sed" "sh,bash" "fish" "cmake" "g++" "gcc" "lld" "clang" "rustup" "dwarves" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "fortune" "fortune-mod" "cowsay" ",openssl-devel" "resize,xterm-resize" ",elfutils-devel" ",ncurses-devel" )
+            local _tools=( "git" "git-delta" "curl" "neovim" "ripgrep" "fd" "markdownlint-cli" "bison" "sed" "sh,bash" "fish" "cmake" "g++" "gcc" "lld" "clang" "rustup" "dwarves" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "fortune" "fortune-mod" "cowsay" ",openssl-devel" "resize,xterm-resize" ",elfutils-devel" ",ncurses-devel" )
             _installer=( "sudo" "dnf" "install" "-y" "--skip-broken" )
             ;;
         * )
@@ -116,6 +116,10 @@ _deployInstall(){
 _do_syncDotFiles() {
     local _root=$1
     pushd "$_root" || { echo "Failed pushd $_root"; exit 1;}
+
+    # Bulk sync .config
+    _symLink "$HOME/.home/.config" "$HOME/.config"
+
     while IFS= read -r -d '' i; do
         i=${i#./}
         if [ "$(basename "$i")" = ".gitkeep" ]; then
@@ -124,7 +128,8 @@ _do_syncDotFiles() {
         else
             _symLink "$HOME/.home/$_root/$i" "$HOME/$i"
         fi
-    done < <(find . -type f \
+    done < <(find . -type f  \
+        -not -path "./.config/*" \
         -not -path "./.ssh/authorized_keys" \
         -not -path "./.git/*" \
         -not -path "./deploy.sh" \
@@ -147,21 +152,6 @@ _syncDotFiles() {
         * )
             ;;
     esac
-}
-
-_rebuildYCM() {
-    pushd "$HOME/.vim/bundle/YouCompleteMe" || echo "YCM not installed" && exit 1
-    git submodule update --init --recursive
-    ./install.py --clang-completer --rust-completer --ts-completer
-    popd || exit 1
-}
-
-_vimDeploy() {
-    vim +"PluginInstall" +"qall!"
-}
-
-_vimUpdate() {
-    vim +"PluginUpdate" +"qall!"
 }
 
 _getHelm() {
@@ -199,9 +189,6 @@ _doUpdate() {
 
     _getHelm
     _helmUpdate
-
-    _vimUpdate
-    _rebuildYCM
 }
 
 _doDeploy(){
@@ -214,9 +201,6 @@ _doDeploy(){
     # _flatpakDeploy
 
     _deployInstall
-
-    _vimDeploy
-    _rebuildYCM
 
     # _updateEtc
 }
