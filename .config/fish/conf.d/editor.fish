@@ -1,6 +1,6 @@
-set -x EDITOR "vim"
+set -x EDITOR "nvim"
 
-# Prefer Vim with X11 support on Fedora
-if type -q vimx
-	alias vim="vimx"
+# Prefer neovim
+if type -q nvim
+	alias vim="nvim"
 end
