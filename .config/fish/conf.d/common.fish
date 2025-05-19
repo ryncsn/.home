@@ -3,7 +3,7 @@ alias ... "cd ../.."
 alias .... "cd ../../.."
 alias ..... "cd ../../../.."
 
-alias la "ls -la"
+alias la 'ls -al'
 alias ll 'ls -ahlF'
 alias l 'ls -CF'
 
