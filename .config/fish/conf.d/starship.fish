@@ -1,1 +1,1 @@
-starship init fish | source
+source (starship init fish --print-full-init | psub)
