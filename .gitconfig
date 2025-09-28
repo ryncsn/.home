@@ -35,7 +35,6 @@
 	diffFilter = delta
 
 [delta]
-	navigate = true # use n and N to move between diff sections
 	dark = true
 	syntax-theme = Dracula
 	line-numbers = true
