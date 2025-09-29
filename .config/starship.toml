@@ -85,7 +85,7 @@ always_show_remote=true
 only_attached=false
 symbol="  "
 style="bright-green"
-format="\b\b[](fg:bright-black bg:$style)[$symbol$branch  $remote_name - $remote_branch ](fg:black bg:$style)[](fg:$style) "
+format="\b\b[](fg:bright-black bg:$style)[$symbol$branch  $remote_name - $remote_branch ](fg:black bg:$style)[](fg:$style) "
 
 [git_commit]
 disabled=false
@@ -185,7 +185,7 @@ symbol=" "
 symbol=" "
 
 [nim]
-symbol=" "
+symbol=" "
 
 [nix_shell]
 symbol=" "
@@ -209,11 +209,11 @@ symbol=" "
 symbol=" "
 
 [swift]
-symbol="ﯣ "
+symbol=" "
 
 [custom.linuxkernel]
-description=""
+description="Linux Kernel"
 style="bold bright-yellow"
 when="[ -e Kconfig ] && [ -e Kbuild ] && [ -e Makefile ] && grep -q VERSION Makefile"
 command='sed -E -ne "s/^(VERSION|PATCHLEVEL|SUBLEVEL|EXTRAVERSION)[[:space:]]*=[[:space:]\-]*(\S*)/\2/p" Makefile | paste -sd "..-" -'
-format="[| Linux Kernel $output ]($style)"
+format="[|  $output ]($style)"
