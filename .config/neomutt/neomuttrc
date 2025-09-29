@@ -1,15 +1,20 @@
 source /opt/homebrew/share/neomutt/colorschemes/neonwolf-256.neomuttrc
+set mbox_type = Maildir
+set folder = "~/.mail/gmail-ryncsn"
+# set folder=imaps://imap.gmail.com/
 
-set real_name='Kairui Song'
-set from="ryncsn@gmail.com"
+set real_name = 'Kairui Song'
+set from = "ryncsn@gmail.com"
 
-set imap_user="ryncsn@gmail.com"
-set imap_pass=`/usr/bin/security find-generic-password -w -a 'ryncsn@gmail.com' -s 'Gmail'`
+set imap_user = "ryncsn@gmail.com"
+set imap_pass = "`/usr/bin/security find-generic-password -w -a 'ryncsn@gmail.com' -s 'Gmail'`"
 
-set smtp_url = "smtps://ryncsn@smtp.gmail.com:587"
-set smtp_pass = `/usr/bin/security find-generic-password -w -a 'ryncsn@gmail.com' -s 'Gmail'`
+set smtp_url = "smtp://ryncsn@gmail.com@smtp.gmail.com:587"
+set smtp_pass = "`/usr/bin/security find-generic-password -w -a 'ryncsn@gmail.com' -s 'Gmail'`"
+set smtp_authenticators = "login"
 
-set folder=imaps://imap.gmail.com/
+set ssl_starttls = yes
+set ssl_force_tls = yes
 
 # Location of inbox
 set spoolfile = "+INBOX"
@@ -47,6 +52,8 @@ bind pager g top
 bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
+# Reply to all recipients
+bind index,pager g group-reply
 
 # Sidebar binds
 bind index,pager \CP sidebar-prev                 # Ctrl-n to select next folder
