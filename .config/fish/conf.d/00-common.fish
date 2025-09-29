@@ -21,3 +21,5 @@ for _PATH in \
 	test -d $_PATH || continue
 	set -xg PATH $_PATH $PATH
 end
+
+set -xg SHELL fish
