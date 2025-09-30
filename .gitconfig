@@ -1,6 +1,7 @@
 [core]
 	pager = delta
 	abbrev = 12
+	quotepath = false
 
 [pretty]
 	fixes = Fixes: %h (\"%s\")
