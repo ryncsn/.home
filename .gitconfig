@@ -66,7 +66,7 @@
 	zero-style = syntax
 
 	map-styles = \
-		bold purple => syntax "#410040", \
+		bold purple => syntax "#413040", \
 		bold cyan => syntax "#11616d", \
 		bold blue => syntax "#23152e", \
 		bold yellow => syntax "#222f14"
@@ -82,4 +82,4 @@
 	conflictstyle = diff3
 
 [diff]
-	colorMoved = default
+	colorMoved = true
