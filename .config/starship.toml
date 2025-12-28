@@ -148,8 +148,8 @@ style="bold white bg:124"
 [character]
 format="$symbol "
 disabled=false
-success_symbol="[](fg:235 bg:green)[](28)"
-error_symbol="[](52)"
+success_symbol="[](fg:235 bg:28)[](28)"
+error_symbol="[](124)"
 vicmd_symbol="[](cyan)"
 
 # Nerdfonts
