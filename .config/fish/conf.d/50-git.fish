@@ -10,6 +10,9 @@ alias giblame "git blame"
 alias gicommit "git commit"
 alias gifetch "git fetch"
 alias gireset "git reset"
+alias gipush "git push"
+alias gipull "git pull"
+alias giadd "git add"
 
 function girename
     sed -ie "s/\b$argv[1]\b/$argv[2]/g" (git grep -w "$argv[1]" | cut -d ":" -f 1 | sort -u)
