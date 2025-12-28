@@ -79,7 +79,7 @@
 	merge-conflict-theirs-diff-header-decoration-style = "#434C5E" ul
 
 [merge]
-	conflictstyle = diff3
+	conflictStyle = zdiff3
 
 [diff]
 	colorMoved = true
