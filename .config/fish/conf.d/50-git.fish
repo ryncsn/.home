@@ -22,6 +22,8 @@ alias gireset "git reset"
 alias gipush "git push"
 alias gipull "git pull"
 alias giadd "git add"
+alias giclean "git clean"
+alias giremote "git remote"
 
 function girename
     set -l files (git grep -l "$argv[1]" | sort -u)
