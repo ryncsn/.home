@@ -122,7 +122,7 @@ _do_syncDotFiles() {
 		fi
 	done < <(find . -type f \
 		-not -path "./.config/*" \
-		-not -path "./.ssh/authorized_keys" \
+		-not -path "./.ssh/*" \
 		-not -path "./.git/*" \
 		-not -path "./deploy.sh" \
 		-not -path "./misc/*" \
