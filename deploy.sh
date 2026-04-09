@@ -22,7 +22,7 @@ _checkTools() {
 		_installer=("brew" "install")
 		;;
 	Linux)
-		local _tools=("git" "git-delta" "curl" "neovim" "ripgrep" "fd" "bison" "sed" "sh,bash" "fish" "cmake" "g++" "gcc" "lld" "clang" "rustup" "dwarves" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "fortune" "fortune-mod" "cowsay" ",openssl-devel" "resize,xterm-resize" ",elfutils-devel" ",ncurses-devel")
+		local _tools=("git" "git-delta" "curl" "ripgrep" "fd" "bison" "sed" "sh,bash" "fish" "cmake" "g++" "gcc" "lld" "clang" "rustup" "dwarves" "realpath,coreutils" "dirname,coreutils" "shellcheck,ShellCheck" "npm" "chsh,util-linux-user" "ctags" "make" "kubectl,kubernetes-client" "podman" "wget" "curl" "htop" "strace" "python" "iotop" "iftop" "flex" "perl" "ansible" "tmux" "fortune" "fortune-mod" "cowsay" ",openssl-devel" "resize,xterm-resize" ",elfutils-devel" ",ncurses-devel")
 		_installer=("sudo" "dnf" "install" "-y" "--skip-broken")
 		;;
 	*) ;;
