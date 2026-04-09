@@ -83,3 +83,6 @@
 
 [diff]
 	colorMoved = true
+
+[receive]
+	denyCurrentBranch = false
