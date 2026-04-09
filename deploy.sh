@@ -18,7 +18,7 @@ _checkTools() {
 			echo "Homebrew required."
 			exit 1
 		fi
-		_tools=("git" "git-delta" "curl" "neovim" "ripgrep" "fd" "markdownlint-cli" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop" "python" "iftop" "flex" "perl" "ansible" "tmux" "helm" "md5sha1sum" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt" "isync" "cowsae" "fortune")
+		_tools=("git" "git-delta" "curl" "neovim" "ripgrep" "fd" "markdownlint-cli" "bison" "fish" "cmake" "shellcheck" "npm" "ctags" "make" "kubectl" "podman" "wget" "curl" "htop" "python" "iftop" "flex" "perl" "ansible" "tmux" "md5sha1sum" "rustup-init" "starship" "grc" "terminal-notifier" "neomutt" "isync" "cowsae" "fortune")
 		_installer=("brew" "install")
 		;;
 	Linux)
