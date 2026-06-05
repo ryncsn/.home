@@ -26,6 +26,9 @@
 	smtpServerPort = 587
 	smtpEncryption = tls
 	smtpUser = ryncsn@gmail.com
+	from = Kairui Song <ryncsn@gmail.com>
+	reply-to = Kairui Song <ryncsn@gmail.com>
+	cc = Kairui Song <ryncsn@gmail.com>
 
 [format]
 	from = true
