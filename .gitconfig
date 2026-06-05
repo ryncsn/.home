@@ -89,3 +89,6 @@
 
 [receive]
 	denyCurrentBranch = false
+
+[tar "tar.xz"]
+	command = xz
