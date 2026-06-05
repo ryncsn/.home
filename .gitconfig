@@ -92,3 +92,6 @@
 
 [tar "tar.xz"]
 	command = xz
+
+[b4]
+	send-endpoint-web = https://lkml.kernel.org/_b4_submit
